@@ -2,9 +2,16 @@
 A plugin for the Godot Game Engine, to help creating/changing tileset scene.
 
 # Howto
-## add a StaticBody2D with collisionPolygon
-![](https://gifyu.com/images/set_collision_polygon.gif)
-## add NavigationPolygon with or without polygon from collision
-![](https://gifyu.com/images/set_navigation.gif)
+## create tile with a StaticBody2D and collisionPolygon
+![](https://gifyu.com/images/set_collision_polygon5d645.gif)
+## create multiple tiles with Collision, Navigation and LightOccluder nodes
+![](https://gifyu.com/images/multicreate.gif)
+## multi select tiles
+![](https://gifyu.com/images/multiselect_ede64.gif)
+
+# Instalation
+- create addon folder in project
+- copy tileset_plugin folder into addon folder
+- open project settings and activate plugin
 
 
