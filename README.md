@@ -10,8 +10,8 @@ A plugin for the Godot Game Engine, to help creating/changing tileset scene.
 ![](https://gifyu.com/images/multiselect_ede64.gif)
 
 # Instalation
-- create addon folder in project
-- copy tileset_plugin folder into addon folder
+- create addons folder in project
+- copy tileset_plugin folder into addons folder
 - open project settings and activate plugin
 
 
