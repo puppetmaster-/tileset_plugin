@@ -13,7 +13,7 @@ var imagesPath
 var fileDialog = null
 
 func _enter_tree():
-	dock = preload("res://addons/tileset_dock/tileset_dock.tscn").instance()
+	dock = preload("res://addons/ch.fischspiele.tilesethelper/tilesethelper_dock.tscn").instance()
 	#image
 	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/size/x").connect("text_changed",self,"tilesize")
 	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/size/x").set_text(str(tileSize))
@@ -200,7 +200,7 @@ func on_files_selected(_aPath):
 		imageName = getFileName(_aPath[0])
 	else:
 		imageSize = ""
-		image.load("res://addons/tileset_dock/multiple.png")
+		image.load("res://addons/ch.fischspiele.tilesethelper/multiple.png")
 		imageName = "..."
 	
 	dock.get_node(mainGuiPath+"HBoxImage/ImageContainer/TextureFrame").set_texture(image)

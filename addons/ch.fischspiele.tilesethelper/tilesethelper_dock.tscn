@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://addons/tileset_dock/single.png" type="Texture" id=1]
-[ext_resource path="res://addons/tileset_dock/icon_collision_polygon_2d.png" type="Texture" id=2]
-[ext_resource path="res://addons/tileset_dock/icon_navigation_polygon_instance.png" type="Texture" id=3]
-[ext_resource path="res://addons/tileset_dock/icon_light_occluder_2d.png" type="Texture" id=4]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/single.png" type="Texture" id=1]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icon_collision_polygon_2d.png" type="Texture" id=2]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icon_navigation_polygon_instance.png" type="Texture" id=3]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icon_light_occluder_2d.png" type="Texture" id=4]
 
 [node name="Tileset" type="CenterContainer"]
 
