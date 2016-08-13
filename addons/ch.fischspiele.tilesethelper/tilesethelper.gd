@@ -42,37 +42,37 @@ func _exit_tree():
 
 func collisionPolygon():
 	print("add/remove collisionPolygon")
-	for n in get_selection().get_selected_nodes():
-		setCollisionPolygon(n)
+	for seletedNode in get_selection().get_selected_nodes():
+		setCollisionPolygon(seletedNode)
 
-func setCollisionPolygon(n):
-	if n.get_owner() != null:
-		var owner = n.get_owner()
-		var _node = setStaticBody(n,owner)
-		var _node2 = CollisionPolygon2D.new()
-		_node2.set_polygon(getVector2ArrayFromSprite(n))
-		_node2.set_name("CollisionPolygon2D")
-		_node.add_child(_node2)
-		_node2.set_owner(owner)
+func setCollisionPolygon(seletedNode):
+	if seletedNode.get_owner() != null:
+		var _owner = seletedNode.get_owner()
+		var _newStaticBodyNode = setStaticBody(seletedNode,_owner)
+		var _newCollisionPolygonNode = CollisionPolygon2D.new()
+		_newCollisionPolygonNode.set_polygon(getVector2ArrayFromSprite(seletedNode))
+		_newCollisionPolygonNode.set_name("CollisionPolygon2D")
+		_newStaticBodyNode.add_child(_newCollisionPolygonNode)
+		_newCollisionPolygonNode.set_owner(_owner)
 	else:
 		print("Error: root node selected")
 
 func occluder():
 	print("add/remove occluder")
-	for n in get_selection().get_selected_nodes():
-		setOccluder(n)
+	for seletedNode in get_selection().get_selected_nodes():
+		setOccluder(seletedNode)
 
-func setOccluder(n):
-	if n.get_owner() != null:
-		if n.get_type() == "Sprite":
-			if n.has_node("LightOccluder2D"):
+func setOccluder(seletedNode):
+	if seletedNode.get_owner() != null:
+		if seletedNode.get_type() == "Sprite":
+			if seletedNode.has_node("LightOccluder2D"):
 				print("deleting LightOccluder2D")
-				n.remove_child(n.get_node("LightOccluder2D"))
-			var _node = LightOccluder2D.new()
-			_node.set_occluder_polygon(getOccPolygon2D(n))
-			_node.set_name("LightOccluder2D")
-			n.add_child(_node)
-			_node.set_owner(n.get_parent())
+				seletedNode.remove_child(seletedNode.get_node("LightOccluder2D"))
+			var _newLightOccluderNode = LightOccluder2D.new()
+			_newLightOccluderNode.set_occluder_polygon(getOccPolygon2D(seletedNode))
+			_newLightOccluderNode.set_name("LightOccluder2D")
+			seletedNode.add_child(_newLightOccluderNode)
+			_newLightOccluderNode.set_owner(seletedNode.get_parent())
 		else:
 			print("Error: no sprite selected")
 	else:
@@ -80,19 +80,19 @@ func setOccluder(n):
 
 func navigation():
 	print("add/remove navigation")
-	for n in get_selection().get_selected_nodes():
-		setNavigation(n)
+	for seletedNode in get_selection().get_selected_nodes():
+		setNavigation(seletedNode)
 
-func setNavigation(n):
-	if n.get_owner() != null:
-		if n.get_type() == "Sprite":
-			if n.has_node("NavigationPolygonInstance"):
-				n.remove_child(n.get_node("NavigationPolygonInstance"))
-			var _node = NavigationPolygonInstance.new()
-			_node.set_navigation_polygon(getNavPolygon(n))
-			_node.set_name("NavigationPolygonInstance")
-			n.add_child(_node)
-			_node.set_owner(n.get_parent())
+func setNavigation(seletedNode):
+	if seletedNode.get_owner() != null:
+		if seletedNode.get_type() == "Sprite":
+			if seletedNode.has_node("NavigationPolygonInstance"):
+				seletedNode.remove_child(seletedNode.get_node("NavigationPolygonInstance"))
+			var _newNavigationPolygonNode = NavigationPolygonInstance.new()
+			_newNavigationPolygonNode.set_navigation_polygon(getNavPolygon(seletedNode))
+			_newNavigationPolygonNode.set_name("NavigationPolygonInstance")
+			seletedNode.add_child(_newNavigationPolygonNode)
+			_newNavigationPolygonNode.set_owner(seletedNode.get_parent())
 		else:
 			print("Error: no sprite selected")
 	else:
@@ -133,21 +133,20 @@ func getOccPolygon2D(selectedNode):
 	return _occPoly
 
 func tilesize(newTileSize):
-	print("set tilesize to: ", newTileSize)
 	tileSize = int(newTileSize)
 
 func setStaticBody(selectedNode,owner):
 	if selectedNode.has_node("StaticBody2D"):
 		selectedNode.remove_child(selectedNode.get_node("StaticBody2D"))
-	var _node = StaticBody2D.new()
-	_node.set_name("StaticBody2D")
-	var _cps = ConvexPolygonShape2D.new()
-	_cps.set_points(getVector2ArrayFromSprite(selectedNode))
-	_node.clear_shapes()
-	_node.add_shape(_cps)
-	selectedNode.add_child(_node)
-	_node.set_owner(owner)
-	return _node
+	var _newStaticBodyNode = StaticBody2D.new()
+	_newStaticBodyNode.set_name("StaticBody2D")
+	var _newConvexPolygonShape = ConvexPolygonShape2D.new()
+	_newConvexPolygonShape.set_points(getVector2ArrayFromSprite(selectedNode))
+	_newStaticBodyNode.clear_shapes()
+	_newStaticBodyNode.add_shape(_newConvexPolygonShape)
+	selectedNode.add_child(_newStaticBodyNode)
+	_newStaticBodyNode.set_owner(owner)
+	return _newStaticBodyNode
 
 func show_dialog():
 	if fileDialog == null:
@@ -166,47 +165,41 @@ func show_dialog():
 		fileDialog.connect("files_selected",self,"on_files_selected")
 
 func setCollisionPolygonCheck(newValue):
-	print("set checkCollision to: ", newValue)
 	checkCollision = newValue
 	
 func setImageCheck(newValue):
-	print("set checkImage to: ", newValue)
 	checkImage = newValue
 
 func setNavigationCheck(newValue):
-	print("set checkNavigation to: ", newValue)
 	checkNavigation = newValue
 
 func setOccluderCheck(newValue):
-	print("set checkOccluder to: ", newValue)
 	checkOccluder = newValue
 
 func setGetPolygonFromCollisionCheck(newValue):
-	print("set getPolygonFromCollision to: ", newValue)
 	getPolygonFromCollision = newValue
 
-func on_files_selected(_aPath):
-	imagesPath = _aPath
-	var image  = ImageTexture.new()
-	var imageName
-	var imageSize
+func on_files_selected(imagePathArray):
+	imagesPath = imagePathArray
+	var _newTexture  = ImageTexture.new()
+	var _newName
+	var _newSize
 	dock.get_node(mainGuiPath+"HBoxImage/CheckBox").set_pressed(true)
 	setImageCheck(true)
-	if _aPath.size() == 1:
-		image.load(_aPath[0])
-		imageSize = image.get_width()
-		if image.get_width() > 64 || image.get_height() > 64:
-			image.set_size_override(Vector2(64,64))
-		imageName = getFileName(_aPath[0])
+	if imagePathArray.size() == 1:
+		_newTexture.load(imagePathArray[0])
+		_newSize = _newTexture.get_width()
+		if _newTexture.get_width() > 64 || _newTexture.get_height() > 64:
+			_newTexture.set_size_override(Vector2(64,64))
+		_newName = getFileName(imagePathArray[0])
 	else:
-		imageSize = ""
-		image.load("res://addons/ch.fischspiele.tilesethelper/multiple.png")
-		imageName = "..."
+		_newSize = ""
+		_newTexture.load("res://addons/ch.fischspiele.tilesethelper/multiple.png")
+		_newName = "..."
 	
-	dock.get_node(mainGuiPath+"HBoxImage/ImageContainer/TextureFrame").set_texture(image)
-	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/size/x").set_text(str(imageSize))
-	#dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/size/y").set_text(str(image.get_height()))
-	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/name/lblName").set_text(imageName)
+	dock.get_node(mainGuiPath+"HBoxImage/ImageContainer/TextureFrame").set_texture(_newTexture)
+	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/size/x").set_text(str(_newSize))
+	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/name/lblName").set_text(_newName)
 
 func getFileName(_path):
 	var _fileName = _path.substr(_path.find_last("/")+1, _path.length() - _path.find_last("/")-1)
@@ -229,28 +222,29 @@ func create_tiles():
 func addImageNodes():
 	print("creating ",imagesPath.size()," sprites from selection")
 	var _root =  get_tree().get_edited_scene_root()
-	for _path in imagesPath:
-		var _image  = ImageTexture.new()
-		_image.load(_path)
-		tileSize = _image.get_width()
-		var _imageName = getFileName(_path)
-		var _spriteNode
+	for _imagePath in imagesPath:
+		var _newTexture  = ImageTexture.new()
+		_newTexture.load(_imagePath)
+		_newTexture.set_flags(0)
+		tileSize = _newTexture.get_width()
+		var _imageName = getFileName(_imagePath)
+		var _newSpriteNode
 		if !_root.has_node(_imageName):
-			_spriteNode = Sprite.new()
-			_spriteNode.set_texture(_image)
-			_root.add_child(_spriteNode)
-			_spriteNode.set_pos(Vector2(0,0))
-			_spriteNode.set_owner(_root)
-			_spriteNode.set_name(_imageName)
+			_newSpriteNode = Sprite.new()
+			_newSpriteNode.set_texture(_newTexture)
+			_root.add_child(_newSpriteNode)
+			_newSpriteNode.set_pos(Vector2(0,0))
+			_newSpriteNode.set_owner(_root)
+			_newSpriteNode.set_name(_imageName)
 		else:
-			_spriteNode = _root.get_node(_imageName)
-			_spriteNode.set_texture(_image)
+			_newSpriteNode = _root.get_node(_imageName)
+			_newSpriteNode.set_texture(_newTexture)
 		if checkCollision:
-			setCollisionPolygon(_spriteNode)
+			setCollisionPolygon(_newSpriteNode)
 		if checkNavigation:
-			setNavigation(_spriteNode)
+			setNavigation(_newSpriteNode)
 		if checkOccluder:
-			setOccluder(_spriteNode)
+			setOccluder(_newSpriteNode)
 	
 	
 	
