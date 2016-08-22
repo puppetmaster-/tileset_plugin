@@ -3,6 +3,10 @@ extends EditorPlugin
 
 var dock = null
 var tileSize = 64
+var oneImageSelected = false
+var oneImageSelectedSize = 0
+var hFrames = 0
+var vFrames = 0
 var getPolygonFromCollision = true
 var checkCollision = false
 var checkNavigation = false
@@ -15,9 +19,14 @@ var fileDialog = null
 func _enter_tree():
 	dock = preload("res://addons/ch.fischspiele.tilesethelper/tilesethelper_dock.tscn").instance()
 	#image
-	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/size/x").connect("text_changed",self,"tilesize")
-	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/size/x").set_text(str(tileSize))
+	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/sizeBox/size").connect("text_changed",self,"tilesize")
+	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/sizeBox/size").set_text(str(tileSize))
 	dock.get_node(mainGuiPath+"HBoxImage/CheckBox").connect("toggled",self,"setImageCheck")
+	#frames
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_text("0")
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_text("0")
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_editable(false)
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_editable(false)
 	#dialog
 	dock.get_node(mainGuiPath+"HBoxImage/ImageContainer/btnImage").connect("pressed",self,"show_dialog")
 	#collision
@@ -35,10 +44,6 @@ func _enter_tree():
 	#tiles
 	dock.get_node(mainGuiPath+"create_tiles").connect("pressed",self,"create_tiles")
 	add_control_to_dock( DOCK_SLOT_RIGHT_BL, dock )
-
-func _exit_tree():
-	remove_control_from_docks(dock)
-	dock.free()
 
 func collisionPolygon():
 	print("add/remove collisionPolygon")
@@ -134,6 +139,17 @@ func getOccPolygon2D(selectedNode):
 
 func tilesize(newTileSize):
 	tileSize = int(newTileSize)
+	if tileSize < oneImageSelectedSize.x && tileSize > 0:
+		var _newTexture  = ImageTexture.new()
+		_newTexture.load("res://addons/ch.fischspiele.tilesethelper/gui_image_tileset.png")
+		hFrames = oneImageSelectedSize.x/tileSize
+		vFrames = oneImageSelectedSize.y/tileSize
+		dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_text("0")
+		dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_text(str(hFrames*vFrames))
+		dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_editable(true)
+		dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_editable(true)
+	else:
+		disableFramesGui()
 
 func setStaticBody(selectedNode,owner):
 	if selectedNode.has_node("StaticBody2D"):
@@ -164,21 +180,6 @@ func show_dialog():
 	if not fileDialog.is_connected("files_selected",self,"on_files_selected"):
 		fileDialog.connect("files_selected",self,"on_files_selected")
 
-func setCollisionPolygonCheck(newValue):
-	checkCollision = newValue
-	
-func setImageCheck(newValue):
-	checkImage = newValue
-
-func setNavigationCheck(newValue):
-	checkNavigation = newValue
-
-func setOccluderCheck(newValue):
-	checkOccluder = newValue
-
-func setGetPolygonFromCollisionCheck(newValue):
-	getPolygonFromCollision = newValue
-
 func on_files_selected(imagePathArray):
 	imagesPath = imagePathArray
 	var _newTexture  = ImageTexture.new()
@@ -186,27 +187,25 @@ func on_files_selected(imagePathArray):
 	var _newSize
 	dock.get_node(mainGuiPath+"HBoxImage/CheckBox").set_pressed(true)
 	setImageCheck(true)
+	disableFramesGui()
 	if imagePathArray.size() == 1:
+		oneImageSelected = true
 		_newTexture.load(imagePathArray[0])
 		_newSize = _newTexture.get_width()
+		oneImageSelectedSize = Vector2(_newTexture.get_width(),_newTexture.get_height())
 		if _newTexture.get_width() > 64 || _newTexture.get_height() > 64:
 			_newTexture.set_size_override(Vector2(64,64))
 		_newName = getFileName(imagePathArray[0])
 	else:
+		oneImageSelected = false
+		oneImageSelectedSize = Vector2(0,0)
 		_newSize = ""
-		_newTexture.load("res://addons/ch.fischspiele.tilesethelper/multiple.png")
+		_newTexture.load("res://addons/ch.fischspiele.tilesethelper/gui_image_multiple.png")
 		_newName = "..."
 	
 	dock.get_node(mainGuiPath+"HBoxImage/ImageContainer/TextureFrame").set_texture(_newTexture)
-	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/size/x").set_text(str(_newSize))
+	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/sizeBox/size").set_text(str(_newSize))
 	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/name/lblName").set_text(_newName)
-
-func getFileName(_path):
-	var _fileName = _path.substr(_path.find_last("/")+1, _path.length() - _path.find_last("/")-1)
-	var _dotPos = _fileName.find_last(".")
-	if _dotPos != -1:
-		_fileName = _fileName.substr(0,_dotPos)
-	return _fileName
 
 func create_tiles():
 	if checkImage:
@@ -222,32 +221,99 @@ func create_tiles():
 func addImageNodes():
 	print("creating ",imagesPath.size()," sprites from selection")
 	var _root =  get_tree().get_edited_scene_root()
-	for _imagePath in imagesPath:
-		var _newTexture  = ImageTexture.new()
-		_newTexture.load(_imagePath)
-		_newTexture.set_flags(0)
-		tileSize = _newTexture.get_width()
-		var _imageName = getFileName(_imagePath)
-		var _newSpriteNode
-		if !_root.has_node(_imageName):
-			_newSpriteNode = Sprite.new()
-			_newSpriteNode.set_texture(_newTexture)
-			_root.add_child(_newSpriteNode)
-			_newSpriteNode.set_pos(Vector2(0,0))
-			_newSpriteNode.set_owner(_root)
-			_newSpriteNode.set_name(_imageName)
-		else:
-			_newSpriteNode = _root.get_node(_imageName)
-			_newSpriteNode.set_texture(_newTexture)
-		if checkCollision:
-			setCollisionPolygon(_newSpriteNode)
-		if checkNavigation:
-			setNavigation(_newSpriteNode)
-		if checkOccluder:
-			setOccluder(_newSpriteNode)
+	if dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").is_editable():
+		for _imagePath in imagesPath:
+			var _newTexture  = ImageTexture.new()
+			_newTexture.load(_imagePath)
+			_newTexture.set_flags(0)
+			var _startFrame = int(dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").get_text())
+			var _endFrame = int(dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").get_text())
+			for _frame in range(_startFrame,_endFrame):
+				var _imageName = getFileName(_imagePath)+str(_frame)
+				var _newSpriteNode
+				if !_root.has_node(_imageName):
+					_newSpriteNode = Sprite.new()
+					_newSpriteNode.set_texture(_newTexture)
+					_newSpriteNode.set_vframes(vFrames)
+					_newSpriteNode.set_hframes(hFrames)
+					_newSpriteNode.set_frame(_frame)
+					_root.add_child(_newSpriteNode)
+					_newSpriteNode.set_pos(Vector2(0,0))
+					_newSpriteNode.set_owner(_root)
+					_newSpriteNode.set_name(_imageName)
+				else:
+					_newSpriteNode = _root.get_node(_imageName)
+					_newSpriteNode.set_texture(_newTexture)
+					_newSpriteNode.set_vframes(vFrames)
+					_newSpriteNode.set_hframes(hFrames)
+					_newSpriteNode.set_frame(_frame)
+				if checkCollision:
+					setCollisionPolygon(_newSpriteNode)
+				if checkNavigation:
+					setNavigation(_newSpriteNode)
+				if checkOccluder:
+					setOccluder(_newSpriteNode)
+	else:
+		for _imagePath in imagesPath:
+			var _newTexture  = ImageTexture.new()
+			_newTexture.load(_imagePath)
+			_newTexture.set_flags(0)
+			tileSize = _newTexture.get_width()
+			var _imageName = getFileName(_imagePath)
+			var _newSpriteNode
+			if !_root.has_node(_imageName):
+				_newSpriteNode = Sprite.new()
+				_newSpriteNode.set_texture(_newTexture)
+				_root.add_child(_newSpriteNode)
+				_newSpriteNode.set_pos(Vector2(0,0))
+				_newSpriteNode.set_owner(_root)
+				_newSpriteNode.set_name(_imageName)
+			else:
+				_newSpriteNode = _root.get_node(_imageName)
+				_newSpriteNode.set_texture(_newTexture)
+			if checkCollision:
+				setCollisionPolygon(_newSpriteNode)
+			if checkNavigation:
+				setNavigation(_newSpriteNode)
+			if checkOccluder:
+				setOccluder(_newSpriteNode)
+
+###
+###  - - GUI Helper functions
+###
+func setCollisionPolygonCheck(newValue):
+	checkCollision = newValue
 	
-	
-	
-	
-	
-	
+func setImageCheck(newValue):
+	checkImage = newValue
+
+func setNavigationCheck(newValue):
+	checkNavigation = newValue
+
+func setOccluderCheck(newValue):
+	checkOccluder = newValue
+
+func setGetPolygonFromCollisionCheck(newValue):
+	getPolygonFromCollision = newValue
+
+func disableFramesGui():
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_text("0")
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_text("0")
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_editable(false)
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_editable(false)
+	vFrames = 0
+	hFrames = 0
+
+func _exit_tree():
+	remove_control_from_docks(dock)
+	dock.free()
+
+###
+### - - Helper functions
+###
+func getFileName(_path):
+	var _fileName = _path.substr(_path.find_last("/")+1, _path.length() - _path.find_last("/")-1)
+	var _dotPos = _fileName.find_last(".")
+	if _dotPos != -1:
+		_fileName = _fileName.substr(0,_dotPos)
+	return _fileName
