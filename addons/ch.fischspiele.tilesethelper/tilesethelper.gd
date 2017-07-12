@@ -12,7 +12,7 @@ var checkCollision = false
 var checkNavigation = false
 var checkImage = false
 var checkOccluder = false
-var mainGuiPath = "VBoxContainer/PanelContainer/VBoxContainer/"
+var mainGuiPath = "VBoxContainer/"
 var imagesPath
 var fileDialog = null
 
