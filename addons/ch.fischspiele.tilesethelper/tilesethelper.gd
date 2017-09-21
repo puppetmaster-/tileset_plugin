@@ -329,7 +329,7 @@ func disableFramesGui():
 
 func _exit_tree():
 	remove_control_from_docks(dock)
-	dock.free()
+	dock.queue_free()
 
 ###
 ### - - Helper functions
