@@ -255,7 +255,7 @@ func addImageNodes():
 						var tmpY = offsetY
 						if _frame / tilesWide < 1:
 							tmpY = 0
-						var position = Vector2 ((tmpX + int(tileSize)) * (int(_frame) % tilesWide) , (tmpY + int(tileSize)) * int((int(_frame) / tilesWide) - .5))
+						var position = Vector2 ((tmpX + int(tileSize)) * (int(_frame) % tilesWide) , (tmpY + int(tileSize)) * int((int(_frame) / tilesWide)))
 						_newSpriteNode.set_region_rect( Rect2( position, Vector2(int(tileSize), int(tileSize))) )
 						_newSpriteNode.set_pos(position)
 					else:
