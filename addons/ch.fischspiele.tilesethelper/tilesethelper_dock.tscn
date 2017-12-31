@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/gui_image_single.png" type="Texture" id=1]
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icon_collision_polygon_2d.png" type="Texture" id=2]
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icon_navigation_polygon_instance.png" type="Texture" id=3]
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icon_light_occluder_2d.png" type="Texture" id=4]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/images/gui_image_single.png" type="Texture" id=1]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_collision_polygon_2d.png" type="Texture" id=2]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_navigation_polygon_instance.png" type="Texture" id=3]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_light_occluder_2d.png" type="Texture" id=4]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_properties.png" type="Texture" id=5]
 
 [node name="Tileset" type="PanelContainer"]
 
@@ -11,17 +12,17 @@ anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = false
-size_flags/horizontal = 0
+size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 88.0
-margin/bottom = -53.0
+margin/right = -37.0
+margin/bottom = 460.0
 __meta__ = {
 "__editor_plugin_screen__": "2D"
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -29,13 +30,26 @@ size_flags/horizontal = 3
 size_flags/vertical = 3
 margin/left = 7.0
 margin/top = 7.0
-margin/right = 225.0
-margin/bottom = 366.0
+margin/right = 1054.0
+margin/bottom = 133.0
+custom_constants/separation = 5
 alignment = 0
 
-[node name="HBoxImage" type="HBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 
-editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 218.0
+margin/bottom = 126.0
+custom_constants/separation = 4
+alignment = 1
+
+[node name="HBoxImage" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -46,7 +60,7 @@ margin/right = 218.0
 margin/bottom = 70.0
 alignment = 1
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxImage"]
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer/HBoxImage"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -62,9 +76,8 @@ shortcut = null
 flat = false
 align = 0
 
-[node name="ImageContainer" type="CenterContainer" parent="VBoxContainer/HBoxImage"]
+[node name="ImageContainer" type="CenterContainer" parent="HBoxContainer/VBoxContainer/HBoxImage"]
 
-editor/display_folded = true
 rect/min_size = Vector2( 64, 64 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -76,7 +89,7 @@ margin/right = 94.0
 margin/bottom = 70.0
 use_top_left = false
 
-[node name="btnImage" type="TextureButton" parent="VBoxContainer/HBoxImage/ImageContainer"]
+[node name="btnImage" type="TextureButton" parent="HBoxContainer/VBoxContainer/HBoxImage/ImageContainer"]
 
 rect/min_size = Vector2( 64, 64 )
 focus/ignore_mouse = false
@@ -94,7 +107,7 @@ shortcut = null
 params/resize_mode = 0
 params/stretch_mode = 0
 
-[node name="TextureFrame" type="TextureFrame" parent="VBoxContainer/HBoxImage/ImageContainer"]
+[node name="TextureFrame" type="TextureFrame" parent="HBoxContainer/VBoxContainer/HBoxImage/ImageContainer"]
 
 rect/min_size = Vector2( 64, 64 )
 focus/ignore_mouse = true
@@ -108,7 +121,7 @@ margin/bottom = 67.0
 texture = ExtResource( 1 )
 stretch_mode = 4
 
-[node name="VBoxImage" type="VBoxContainer" parent="VBoxContainer/HBoxImage"]
+[node name="VBoxImage" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxImage"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -120,7 +133,7 @@ margin/right = 218.0
 margin/bottom = 70.0
 alignment = 0
 
-[node name="lable" type="Label" parent="VBoxContainer/HBoxImage/VBoxImage"]
+[node name="lable" type="Label" parent="HBoxContainer/VBoxContainer/HBoxImage/VBoxImage"]
 
 rect/min_size = Vector2( 45, 0 )
 focus/ignore_mouse = true
@@ -136,7 +149,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="name" type="HBoxContainer" parent="VBoxContainer/HBoxImage/VBoxImage"]
+[node name="name" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxImage/VBoxImage"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -148,7 +161,7 @@ margin/right = 120.0
 margin/bottom = 42.0
 alignment = 0
 
-[node name="lblName" type="LineEdit" parent="VBoxContainer/HBoxImage/VBoxImage/name"]
+[node name="lblName" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxImage/VBoxImage/name"]
 
 rect/min_size = Vector2( 120, 0 )
 focus/ignore_mouse = false
@@ -165,7 +178,7 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="sizeBox" type="HBoxContainer" parent="VBoxContainer/HBoxImage/VBoxImage"]
+[node name="sizeBox" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxImage/VBoxImage"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -177,7 +190,7 @@ margin/right = 120.0
 margin/bottom = 70.0
 alignment = 0
 
-[node name="lblSize" type="Label" parent="VBoxContainer/HBoxImage/VBoxImage/sizeBox"]
+[node name="lblSize" type="Label" parent="HBoxContainer/VBoxContainer/HBoxImage/VBoxImage/sizeBox"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -193,7 +206,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="size" type="LineEdit" parent="VBoxContainer/HBoxImage/VBoxImage/sizeBox"]
+[node name="size" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxImage/VBoxImage/sizeBox"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -210,7 +223,7 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="HBoxImageFrame" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxImageFrame" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 
 editor/display_folded = true
 rect/min_size = Vector2( 0, 24 )
@@ -224,7 +237,7 @@ margin/right = 218.0
 margin/bottom = 98.0
 alignment = 2
 
-[node name="lblFrom" type="Label" parent="VBoxContainer/HBoxImageFrame"]
+[node name="lblFrom" type="Label" parent="HBoxContainer/VBoxContainer/HBoxImageFrame"]
 
 rect/min_size = Vector2( 70, 0 )
 focus/ignore_mouse = true
@@ -241,7 +254,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="frame1" type="LineEdit" parent="VBoxContainer/HBoxImageFrame"]
+[node name="frame1" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxImageFrame"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -260,7 +273,7 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="lblTo" type="Label" parent="VBoxContainer/HBoxImageFrame"]
+[node name="lblTo" type="Label" parent="HBoxContainer/VBoxContainer/HBoxImageFrame"]
 
 rect/min_size = Vector2( 20, 0 )
 focus/ignore_mouse = true
@@ -277,7 +290,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="frame2" type="LineEdit" parent="VBoxContainer/HBoxImageFrame"]
+[node name="frame2" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxImageFrame"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -297,7 +310,7 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="HBoxFrameOffset" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxFrameOffset" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 
 editor/display_folded = true
 rect/min_size = Vector2( 0, 24 )
@@ -311,7 +324,7 @@ margin/right = 218.0
 margin/bottom = 126.0
 alignment = 2
 
-[node name="lblFrom" type="Label" parent="VBoxContainer/HBoxFrameOffset"]
+[node name="lblFrom" type="Label" parent="HBoxContainer/VBoxContainer/HBoxFrameOffset"]
 
 rect/min_size = Vector2( 70, 0 )
 focus/ignore_mouse = true
@@ -328,7 +341,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="XOffset" type="LineEdit" parent="VBoxContainer/HBoxFrameOffset"]
+[node name="XOffset" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxFrameOffset"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -346,7 +359,7 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="lblTo" type="Label" parent="VBoxContainer/HBoxFrameOffset"]
+[node name="lblTo" type="Label" parent="HBoxContainer/VBoxContainer/HBoxFrameOffset"]
 
 rect/min_size = Vector2( 20, 0 )
 focus/ignore_mouse = true
@@ -363,7 +376,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="YOffset" type="LineEdit" parent="VBoxContainer/HBoxFrameOffset"]
+[node name="YOffset" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxFrameOffset"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -382,33 +395,44 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="HSeparator1" type="HSeparator" parent="VBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
 
-rect/min_size = Vector2( 0, 6 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 130.0
-margin/right = 218.0
-margin/bottom = 136.0
+margin/left = 223.0
+margin/top = 0.0
+margin/right = 226.0
+margin/bottom = 126.0
 
-[node name="HBoxCollision" type="HBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 
-editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 231.0
+margin/top = 0.0
+margin/right = 449.0
+margin/bottom = 126.0
+custom_constants/separation = 10
+alignment = 0
+
+[node name="HBoxCollision" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2"]
+
 rect/min_size = Vector2( 0, 24 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 140.0
+margin/top = 0.0
 margin/right = 218.0
-margin/bottom = 170.0
+margin/bottom = 30.0
 alignment = 0
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxCollision"]
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer2/HBoxCollision"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -424,7 +448,7 @@ shortcut = null
 flat = false
 align = 2
 
-[node name="collisionPolygon" type="Button" parent="VBoxContainer/HBoxCollision"]
+[node name="collisionPolygon" type="Button" parent="HBoxContainer/VBoxContainer2/HBoxCollision"]
 
 rect/min_size = Vector2( 188, 30 )
 focus/ignore_mouse = false
@@ -442,33 +466,20 @@ text = "Collision"
 icon = ExtResource( 2 )
 flat = false
 
-[node name="HSeparator4" type="HSeparator" parent="VBoxContainer"]
+[node name="HBoxNavigation" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2"]
 
-rect/min_size = Vector2( 0, 6 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 174.0
-margin/right = 218.0
-margin/bottom = 180.0
-
-[node name="HBoxNavigation" type="HBoxContainer" parent="VBoxContainer"]
-
-editor/display_folded = true
 rect/min_size = Vector2( 0, 24 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 184.0
+margin/top = 40.0
 margin/right = 218.0
-margin/bottom = 214.0
+margin/bottom = 70.0
 alignment = 0
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxNavigation"]
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer2/HBoxNavigation"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -484,7 +495,7 @@ shortcut = null
 flat = false
 align = 0
 
-[node name="navigation" type="Button" parent="VBoxContainer/HBoxNavigation"]
+[node name="navigation" type="Button" parent="HBoxContainer/VBoxContainer2/HBoxNavigation"]
 
 rect/min_size = Vector2( 188, 30 )
 focus/ignore_mouse = false
@@ -502,33 +513,20 @@ text = "Navigation"
 icon = ExtResource( 3 )
 flat = false
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+[node name="HBoxOccluder" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2"]
 
-rect/min_size = Vector2( 0, 6 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 218.0
-margin/right = 218.0
-margin/bottom = 224.0
-
-[node name="HBoxOccluder" type="HBoxContainer" parent="VBoxContainer"]
-
-editor/display_folded = true
 rect/min_size = Vector2( 0, 24 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 228.0
+margin/top = 80.0
 margin/right = 218.0
-margin/bottom = 258.0
+margin/bottom = 110.0
 alignment = 0
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxOccluder"]
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer2/HBoxOccluder"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -544,7 +542,7 @@ shortcut = null
 flat = false
 align = 0
 
-[node name="occluder" type="Button" parent="VBoxContainer/HBoxOccluder"]
+[node name="occluder" type="Button" parent="HBoxContainer/VBoxContainer2/HBoxOccluder"]
 
 rect/min_size = Vector2( 188, 30 )
 focus/ignore_mouse = false
@@ -562,19 +560,50 @@ text = "Occluder"
 icon = ExtResource( 4 )
 flat = false
 
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+[node name="VSeparator1" type="VSeparator" parent="HBoxContainer"]
 
-rect/min_size = Vector2( 0, 6 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 262.0
-margin/right = 218.0
-margin/bottom = 268.0
+margin/left = 454.0
+margin/top = 0.0
+margin/right = 457.0
+margin/bottom = 126.0
 
-[node name="HBoxSettings" type="HBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 462.0
+margin/top = 0.0
+margin/right = 680.0
+margin/bottom = 126.0
+custom_constants/separation = 5
+alignment = 0
+
+[node name="properties" type="Button" parent="HBoxContainer/VBoxContainer3"]
+
+rect/min_size = Vector2( 188, 30 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 218.0
+margin/bottom = 30.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Add Tiles Properties"
+icon = ExtResource( 5 )
+flat = false
+
+[node name="HBoxSettings" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3"]
 
 rect/min_size = Vector2( 0, 33 )
 focus/ignore_mouse = false
@@ -582,12 +611,12 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 272.0
+margin/top = 35.0
 margin/right = 218.0
-margin/bottom = 305.0
+margin/bottom = 68.0
 alignment = 0
 
-[node name="CheckGetPolyColli" type="CheckButton" parent="VBoxContainer/HBoxSettings"]
+[node name="CheckGetPolyColli" type="CheckButton" parent="HBoxContainer/VBoxContainer3/HBoxSettings"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -603,7 +632,7 @@ shortcut = null
 flat = false
 align = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxSettings"]
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer3/HBoxSettings"]
 
 rect/min_size = Vector2( 138, 33 )
 focus/ignore_mouse = true
@@ -621,7 +650,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = 2
 
-[node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer3"]
 
 rect/min_size = Vector2( 0, 6 )
 focus/ignore_mouse = false
@@ -629,11 +658,11 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 309.0
+margin/top = 73.0
 margin/right = 218.0
-margin/bottom = 315.0
+margin/bottom = 79.0
 
-[node name="create_tiles" type="Button" parent="VBoxContainer"]
+[node name="create_tiles" type="Button" parent="HBoxContainer/VBoxContainer3"]
 
 rect/min_size = Vector2( 100, 40 )
 focus/ignore_mouse = false
@@ -641,14 +670,300 @@ focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 0
 margin/left = 59.0
-margin/top = 319.0
+margin/top = 84.0
 margin/right = 159.0
-margin/bottom = 359.0
+margin/bottom = 124.0
 toggle_mode = false
 click_on_press = true
 enabled_focus_mode = 2
 shortcut = null
 text = "Create Tile(s)"
 flat = false
+
+[node name="VSeparator2" type="VSeparator" parent="HBoxContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 685.0
+margin/top = 0.0
+margin/right = 688.0
+margin/bottom = 126.0
+
+[node name="VBoxProperties" type="VBoxContainer" parent="HBoxContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 693.0
+margin/top = 0.0
+margin/right = 1047.0
+margin/bottom = 126.0
+custom_constants/separation = 2
+alignment = 0
+
+[node name="lable" type="Label" parent="HBoxContainer/VBoxProperties"]
+
+rect/min_size = Vector2( 45, 0 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 354.0
+margin/bottom = 14.0
+text = "Properties:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxProperties"]
+
+rect/min_size = Vector2( 0, 6 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 16.0
+margin/right = 354.0
+margin/bottom = 22.0
+
+[node name="flip" type="HBoxContainer" parent="HBoxContainer/VBoxProperties"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 24.0
+margin/right = 354.0
+margin/bottom = 47.0
+alignment = 0
+
+[node name="cbFlipX" type="CheckBox" parent="HBoxContainer/VBoxProperties/flip"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 93.0
+margin/bottom = 23.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Flip X-Axis"
+flat = false
+align = 0
+
+[node name="cbFlipY" type="CheckBox" parent="HBoxContainer/VBoxProperties/flip"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 97.0
+margin/top = 0.0
+margin/right = 189.0
+margin/bottom = 23.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Flip Y-Axis"
+flat = false
+align = 0
+
+[node name="random" type="HBoxContainer" parent="HBoxContainer/VBoxProperties"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 49.0
+margin/right = 354.0
+margin/bottom = 113.0
+alignment = 0
+
+[node name="cbRandom" type="CheckBox" parent="HBoxContainer/VBoxProperties/random"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 78.0
+margin/bottom = 64.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Random"
+flat = false
+align = 0
+
+[node name="ImageContainer1" type="CenterContainer" parent="HBoxContainer/VBoxProperties/random"]
+
+editor/display_folded = true
+rect/min_size = Vector2( 64, 64 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 82.0
+margin/top = 0.0
+margin/right = 146.0
+margin/bottom = 64.0
+use_top_left = false
+
+[node name="btnImage" type="TextureButton" parent="HBoxContainer/VBoxProperties/random/ImageContainer1"]
+
+rect/min_size = Vector2( 64, 64 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 64.0
+margin/bottom = 64.0
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 2
+shortcut = null
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="TextureFrame" type="TextureFrame" parent="HBoxContainer/VBoxProperties/random/ImageContainer1"]
+
+rect/min_size = Vector2( 64, 64 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 64.0
+margin/bottom = 64.0
+texture = ExtResource( 1 )
+stretch_mode = 4
+
+[node name="ItemList" type="ItemList" parent="HBoxContainer/VBoxProperties/random"]
+
+rect/min_size = Vector2( 100, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 150.0
+margin/top = 0.0
+margin/right = 250.0
+margin/bottom = 64.0
+
+[node name="add" type="Button" parent="HBoxContainer/VBoxProperties/random"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 0
+margin/left = 254.0
+margin/top = 22.0
+margin/right = 289.0
+margin/bottom = 42.0
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 2
+shortcut = null
+text = "add"
+flat = false
+
+[node name="remove" type="Button" parent="HBoxContainer/VBoxProperties/random"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 0
+margin/left = 293.0
+margin/top = 22.0
+margin/right = 354.0
+margin/bottom = 42.0
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 2
+shortcut = null
+text = "remove"
+flat = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 7.0
+margin/top = 7.0
+margin/right = 929.0
+margin/bottom = 646.0
+alignment = 0
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 6 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 922.0
+margin/bottom = 6.0
+
+[node name="HSeparator5" type="HSeparator" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 6 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 10.0
+margin/right = 922.0
+margin/bottom = 16.0
+
+[node name="HBoxOccluder1" type="HBoxContainer" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 24 )
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 20.0
+margin/right = 922.0
+margin/bottom = 44.0
+alignment = 0
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxOccluder1"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 26.0
+margin/bottom = 23.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+align = 0
 
 
