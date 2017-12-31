@@ -4,7 +4,7 @@ extends EditorPlugin
 var dock = null
 var tileSize = 64
 var oneImageSelected = false
-var oneImageSelectedSize = 0
+var oneImageSelectedSize = Vector2(0,0)
 var hFrames = 0
 var vFrames = 0
 var getPolygonFromCollision = true
@@ -144,9 +144,7 @@ func getOccPolygon2D(selectedNode):
 
 func tilesize(newTileSize):
 	tileSize = int(newTileSize)
-	if tileSize < oneImageSelectedSize.x && tileSize > 0:
-		var _newTexture  = ImageTexture.new()
-		_newTexture.load("res://addons/ch.fischspiele.tilesethelper/gui_image_tileset.png")
+	if (tileSize < oneImageSelectedSize.x && tileSize > 0) || (oneImageSelectedSize.x != oneImageSelectedSize.y && tileSize > 0):
 		hFrames = oneImageSelectedSize.x/tileSize
 		vFrames = oneImageSelectedSize.y/tileSize
 		dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_text("0")
@@ -192,13 +190,22 @@ func on_files_selected(imagePathArray):
 	var _newSize
 	dock.get_node(mainGuiPath+"HBoxImage/CheckBox").set_pressed(true)
 	setImageCheck(true)
-	disableFramesGui()
 	if imagePathArray.size() == 1:
 		oneImageSelected = true
 		_newTexture.load(imagePathArray[0])
-		_newSize = _newTexture.get_width()
-		oneImageSelectedSize = Vector2(_newTexture.get_width(),_newTexture.get_height())
-		if _newTexture.get_width() > 64 || _newTexture.get_height() > 64:
+		var _newTextureWidth = _newTexture.get_width()
+		var _newTextureHeight = _newTexture.get_height()
+		if _newTextureWidth == _newTextureHeight:
+			_newSize = _newTextureWidth
+			disableFramesGui()
+		elif _newTextureWidth < _newTextureHeight:
+			_newSize = _newTextureWidth
+			dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_text(str(_newTextureHeight/_newSize))
+		else:
+			_newSize = _newTextureHeight
+			dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_text(str(_newTextureWidth/_newSize))
+		oneImageSelectedSize = Vector2(_newTextureWidth,_newTextureHeight)
+		if _newTextureWidth > 64 || _newTextureHeight > 64:
 			_newTexture.set_size_override(Vector2(64,64))
 		_newName = getFileName(imagePathArray[0])
 	else:
@@ -211,6 +218,7 @@ func on_files_selected(imagePathArray):
 	dock.get_node(mainGuiPath+"HBoxImage/ImageContainer/TextureFrame").set_texture(_newTexture)
 	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/sizeBox/size").set_text(str(_newSize))
 	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/name/lblName").set_text(_newName)
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_text("0")
 
 func create_tiles():
 	if checkImage:
