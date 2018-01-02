@@ -11,8 +11,10 @@ lossy_quality = 0.7
 [sub_resource type="CanvasItemShader" id=2]
 
 _code = {
-"fragment": "uniform bool flipX = false;
-uniform bool flipY = false;",
+"fragment": "uniform bool flipX = true;
+uniform bool flipY = true;
+uniform bool random = true;
+uniform texture frame1;",
 "fragment_ofs": 0,
 "light": "",
 "light_ofs": 0,
@@ -24,8 +26,10 @@ uniform bool flipY = false;",
 
 shader/shader = SubResource( 2 )
 shader/shading_mode = 0
-shader_param/flipX = false
-shader_param/flipY = false
+shader_param/flipX = true
+shader_param/flipY = true
+shader_param/random = true
+shader_param/frame1 = SubResource( 1 )
 
 [node name="Tileset" type="Node2D"]
 

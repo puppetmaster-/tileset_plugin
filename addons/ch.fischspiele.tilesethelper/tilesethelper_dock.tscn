@@ -50,6 +50,7 @@ alignment = 1
 
 [node name="HBoxImage" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -312,7 +313,6 @@ caret/caret_blink_speed = 0.65
 
 [node name="HBoxFrameOffset" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 
-editor/display_folded = true
 rect/min_size = Vector2( 0, 24 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -715,7 +715,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 354.0
 margin/bottom = 14.0
-text = "Properties:"
+text = "Tile Properties:"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -732,7 +732,7 @@ margin/top = 16.0
 margin/right = 354.0
 margin/bottom = 22.0
 
-[node name="flip" type="HBoxContainer" parent="HBoxContainer/VBoxProperties"]
+[node name="cbProperties" type="HBoxContainer" parent="HBoxContainer/VBoxProperties"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -744,7 +744,7 @@ margin/right = 354.0
 margin/bottom = 47.0
 alignment = 0
 
-[node name="cbFlipX" type="CheckBox" parent="HBoxContainer/VBoxProperties/flip"]
+[node name="cbFlipX" type="CheckBox" parent="HBoxContainer/VBoxProperties/cbProperties"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -761,7 +761,7 @@ text = "Flip X-Axis"
 flat = false
 align = 0
 
-[node name="cbFlipY" type="CheckBox" parent="HBoxContainer/VBoxProperties/flip"]
+[node name="cbFlipY" type="CheckBox" parent="HBoxContainer/VBoxProperties/cbProperties"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -778,6 +778,23 @@ text = "Flip Y-Axis"
 flat = false
 align = 0
 
+[node name="cbRandom" type="CheckBox" parent="HBoxContainer/VBoxProperties/cbProperties"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 193.0
+margin/top = 0.0
+margin/right = 271.0
+margin/bottom = 23.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Random"
+flat = false
+align = 0
+
 [node name="random" type="HBoxContainer" parent="HBoxContainer/VBoxProperties"]
 
 focus/ignore_mouse = false
@@ -790,34 +807,16 @@ margin/right = 354.0
 margin/bottom = 113.0
 alignment = 0
 
-[node name="cbRandom" type="CheckBox" parent="HBoxContainer/VBoxProperties/random"]
+[node name="ImageContainer1" type="CenterContainer" parent="HBoxContainer/VBoxProperties/random"]
 
+rect/min_size = Vector2( 64, 64 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 78.0
-margin/bottom = 64.0
-toggle_mode = true
-enabled_focus_mode = 2
-shortcut = null
-text = "Random"
-flat = false
-align = 0
-
-[node name="ImageContainer1" type="CenterContainer" parent="HBoxContainer/VBoxProperties/random"]
-
-editor/display_folded = true
-rect/min_size = Vector2( 64, 64 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 82.0
-margin/top = 0.0
-margin/right = 146.0
+margin/right = 64.0
 margin/bottom = 64.0
 use_top_left = false
 
@@ -860,9 +859,9 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 150.0
+margin/left = 68.0
 margin/top = 0.0
-margin/right = 250.0
+margin/right = 168.0
 margin/bottom = 64.0
 
 [node name="add" type="Button" parent="HBoxContainer/VBoxProperties/random"]
@@ -871,9 +870,9 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 0
-margin/left = 254.0
+margin/left = 172.0
 margin/top = 22.0
-margin/right = 289.0
+margin/right = 207.0
 margin/bottom = 42.0
 toggle_mode = false
 click_on_press = true
@@ -888,9 +887,9 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 0
-margin/left = 293.0
+margin/left = 211.0
 margin/top = 22.0
-margin/right = 354.0
+margin/right = 272.0
 margin/bottom = 42.0
 toggle_mode = false
 click_on_press = true
