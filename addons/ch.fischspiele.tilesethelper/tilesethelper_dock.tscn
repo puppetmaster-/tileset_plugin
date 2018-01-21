@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=8 format=1]
 
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/images/gui_image_single.png" type="Texture" id=1]
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_collision_polygon_2d.png" type="Texture" id=2]
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_navigation_polygon_instance.png" type="Texture" id=3]
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_light_occluder_2d.png" type="Texture" id=4]
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_properties.png" type="Texture" id=5]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/tilesethelper_dock.gd" type="Script" id=1]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/images/gui_image_single.png" type="Texture" id=2]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_collision_polygon_2d.png" type="Texture" id=3]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_navigation_polygon_instance.png" type="Texture" id=4]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_light_occluder_2d.png" type="Texture" id=5]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_properties.png" type="Texture" id=6]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/scenes/properties.tscn" type="PackedScene" id=7]
 
 [node name="Tileset" type="PanelContainer"]
 
@@ -16,8 +18,9 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = -37.0
+margin/right = -55.0
 margin/bottom = 460.0
+script/script = ExtResource( 1 )
 __meta__ = {
 "__editor_plugin_screen__": "2D"
 }
@@ -30,13 +33,14 @@ size_flags/horizontal = 3
 size_flags/vertical = 3
 margin/left = 7.0
 margin/top = 7.0
-margin/right = 1054.0
+margin/right = 1072.0
 margin/bottom = 133.0
 custom_constants/separation = 5
 alignment = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -119,7 +123,7 @@ margin/left = 0.0
 margin/top = 3.0
 margin/right = 64.0
 margin/bottom = 67.0
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 stretch_mode = 4
 
 [node name="VBoxImage" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxImage"]
@@ -217,7 +221,7 @@ margin/left = 62.0
 margin/top = 0.0
 margin/right = 120.0
 margin/bottom = 24.0
-text = "0"
+text = "64"
 placeholder/alpha = 0.6
 align = 1
 focus_mode = 2
@@ -265,11 +269,10 @@ margin/left = 74.0
 margin/top = 0.0
 margin/right = 132.0
 margin/bottom = 24.0
-text = "10"
+text = "0"
 placeholder/alpha = 0.6
 align = 1
 max_length = 9
-editable = false
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
@@ -302,11 +305,10 @@ margin/left = 160.0
 margin/top = 0.0
 margin/right = 218.0
 margin/bottom = 24.0
-text = "20"
+text = "0"
 placeholder/alpha = 0.6
 align = 1
 max_length = 9
-editable = false
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
@@ -414,7 +416,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 231.0
 margin/top = 0.0
-margin/right = 449.0
+margin/right = 441.0
 margin/bottom = 126.0
 custom_constants/separation = 10
 alignment = 0
@@ -428,7 +430,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 218.0
+margin/right = 210.0
 margin/bottom = 30.0
 alignment = 0
 
@@ -450,20 +452,20 @@ align = 2
 
 [node name="collisionPolygon" type="Button" parent="HBoxContainer/VBoxContainer2/HBoxCollision"]
 
-rect/min_size = Vector2( 188, 30 )
+rect/min_size = Vector2( 180, 30 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 2
 margin/left = 30.0
 margin/top = 0.0
-margin/right = 218.0
+margin/right = 210.0
 margin/bottom = 30.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Collision"
-icon = ExtResource( 2 )
+icon = ExtResource( 3 )
 flat = false
 
 [node name="HBoxNavigation" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2"]
@@ -475,7 +477,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 40.0
-margin/right = 218.0
+margin/right = 210.0
 margin/bottom = 70.0
 alignment = 0
 
@@ -497,20 +499,20 @@ align = 0
 
 [node name="navigation" type="Button" parent="HBoxContainer/VBoxContainer2/HBoxNavigation"]
 
-rect/min_size = Vector2( 188, 30 )
+rect/min_size = Vector2( 180, 30 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 2
 margin/left = 30.0
 margin/top = 0.0
-margin/right = 218.0
+margin/right = 210.0
 margin/bottom = 30.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Navigation"
-icon = ExtResource( 3 )
+icon = ExtResource( 4 )
 flat = false
 
 [node name="HBoxOccluder" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2"]
@@ -522,7 +524,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 80.0
-margin/right = 218.0
+margin/right = 210.0
 margin/bottom = 110.0
 alignment = 0
 
@@ -544,20 +546,20 @@ align = 0
 
 [node name="occluder" type="Button" parent="HBoxContainer/VBoxContainer2/HBoxOccluder"]
 
-rect/min_size = Vector2( 188, 30 )
+rect/min_size = Vector2( 180, 30 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 2
 margin/left = 30.0
 margin/top = 0.0
-margin/right = 218.0
+margin/right = 210.0
 margin/bottom = 30.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Occluder"
-icon = ExtResource( 4 )
+icon = ExtResource( 5 )
 flat = false
 
 [node name="VSeparator1" type="VSeparator" parent="HBoxContainer"]
@@ -566,9 +568,9 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 454.0
+margin/left = 446.0
 margin/top = 0.0
-margin/right = 457.0
+margin/right = 449.0
 margin/bottom = 126.0
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
@@ -577,30 +579,30 @@ focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 462.0
+margin/left = 454.0
 margin/top = 0.0
-margin/right = 680.0
+margin/right = 634.0
 margin/bottom = 126.0
 custom_constants/separation = 5
 alignment = 0
 
 [node name="properties" type="Button" parent="HBoxContainer/VBoxContainer3"]
 
-rect/min_size = Vector2( 188, 30 )
+rect/min_size = Vector2( 180, 30 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 218.0
+margin/right = 180.0
 margin/bottom = 30.0
 custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Add Tiles Properties"
-icon = ExtResource( 5 )
+icon = ExtResource( 6 )
 flat = false
 
 [node name="HBoxSettings" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3"]
@@ -612,7 +614,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 35.0
-margin/right = 218.0
+margin/right = 180.0
 margin/bottom = 68.0
 alignment = 0
 
@@ -634,14 +636,14 @@ align = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer3/HBoxSettings"]
 
-rect/min_size = Vector2( 138, 33 )
+rect/min_size = Vector2( 100, 33 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 3
 margin/left = 80.0
 margin/top = 0.0
-margin/right = 218.0
+margin/right = 180.0
 margin/bottom = 33.0
 text = "copy Polygon
 from Collision"
@@ -659,7 +661,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 73.0
-margin/right = 218.0
+margin/right = 180.0
 margin/bottom = 79.0
 
 [node name="create_tiles" type="Button" parent="HBoxContainer/VBoxContainer3"]
@@ -669,9 +671,9 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 0
-margin/left = 59.0
+margin/left = 40.0
 margin/top = 84.0
-margin/right = 159.0
+margin/right = 140.0
 margin/bottom = 124.0
 toggle_mode = false
 click_on_press = true
@@ -686,20 +688,21 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 685.0
+margin/left = 639.0
 margin/top = 0.0
-margin/right = 688.0
+margin/right = 642.0
 margin/bottom = 126.0
 
 [node name="VBoxProperties" type="VBoxContainer" parent="HBoxContainer"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 3
 size_flags/vertical = 2
-margin/left = 693.0
+margin/left = 647.0
 margin/top = 0.0
-margin/right = 1047.0
+margin/right = 1065.0
 margin/bottom = 126.0
 custom_constants/separation = 2
 alignment = 0
@@ -713,7 +716,7 @@ size_flags/horizontal = 3
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 354.0
+margin/right = 418.0
 margin/bottom = 14.0
 text = "Tile Properties:"
 percent_visible = 1.0
@@ -729,11 +732,13 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 16.0
-margin/right = 354.0
+margin/right = 418.0
 margin/bottom = 22.0
 
 [node name="cbProperties" type="HBoxContainer" parent="HBoxContainer/VBoxProperties"]
 
+editor/display_folded = true
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -797,18 +802,21 @@ align = 0
 
 [node name="random" type="HBoxContainer" parent="HBoxContainer/VBoxProperties"]
 
+editor/display_folded = true
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 49.0
+margin/top = 24.0
 margin/right = 354.0
-margin/bottom = 113.0
+margin/bottom = 88.0
 alignment = 0
 
 [node name="ImageContainer1" type="CenterContainer" parent="HBoxContainer/VBoxProperties/random"]
 
+editor/display_folded = true
 rect/min_size = Vector2( 64, 64 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -849,7 +857,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 64.0
 margin/bottom = 64.0
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 stretch_mode = 4
 
 [node name="ItemList" type="ItemList" parent="HBoxContainer/VBoxProperties/random"]
@@ -897,6 +905,8 @@ enabled_focus_mode = 2
 shortcut = null
 text = "remove"
 flat = false
+
+[node name="properties" parent="HBoxContainer/VBoxProperties" instance=ExtResource( 7 )]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 

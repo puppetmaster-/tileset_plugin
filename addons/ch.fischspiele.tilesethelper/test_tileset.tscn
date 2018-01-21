@@ -14,7 +14,12 @@ _code = {
 "fragment": "uniform bool flipX = true;
 uniform bool flipY = true;
 uniform bool random = true;
-uniform texture frame1;",
+uniform texture frame1;
+
+COLOR = tex(frame1, UV);
+
+
+",
 "fragment_ofs": 0,
 "light": "",
 "light_ofs": 0,
@@ -28,7 +33,7 @@ shader/shader = SubResource( 2 )
 shader/shading_mode = 0
 shader_param/flipX = true
 shader_param/flipY = true
-shader_param/random = true
+shader_param/random = false
 shader_param/frame1 = SubResource( 1 )
 
 [node name="Tileset" type="Node2D"]
