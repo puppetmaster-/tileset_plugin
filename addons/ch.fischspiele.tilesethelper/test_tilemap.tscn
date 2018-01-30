@@ -1,23 +1,26 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://addons/ch.fischspiele.tilesethelper/test_tileset.tres" type="TileSet" id=1]
 
-[node name="TileMap" type="TileMap"]
+[node name="TileMap" type="TileMap" index="0"]
 
 mode = 0
 tile_set = ExtResource( 1 )
-cell/size = Vector2( 64, 64 )
-cell/quadrant_size = 16
-cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-cell/half_offset = 2
-cell/tile_origin = 0
-cell/y_sort = false
-collision/use_kinematic = false
-collision/friction = 1.0
-collision/bounce = 0.0
-collision/layers = 1
-collision/mask = 1
-occluder/light_mask = 1
-tile_data = IntArray( 0, 0, 1, 1, 65536, 1, 65537, 1 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( 0, 2, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 4, 2, 0, 5, 2, 0, 65536, 2, 0, 65537, 6, 0, 65538, 7, 0, 65539, 6, 0, 65540, 7, 0, 65541, 2, 0, 131072, 2, 0, 131073, 7, 0, 131074, 6, 0, 131075, 7, 0, 131076, 6, 0, 131077, 2, 0, 196608, 2, 0, 196609, 6, 0, 196610, 7, 0, 196611, 6, 0, 196612, 7, 0, 196613, 2, 0, 262144, 2, 0, 262145, 7, 0, 262146, 6, 0, 262147, 7, 0, 262148, 6, 0, 262149, 2, 0, 327680, 2, 0, 327681, 2, 0, 327682, 2, 0, 327683, 2, 0, 327684, 2, 0, 327685, 2, 0 )
+_sections_unfolded = [ "Cell" ]
 
 

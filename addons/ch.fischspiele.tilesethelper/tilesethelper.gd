@@ -7,7 +7,7 @@ var oneImageSelected = false
 var oneImageSelectedSize = Vector2(0,0)
 var hFrames = 0
 var vFrames = 0
-var getPolygonFromCollision = true
+var getPolygonFromCollision = false # todo true not working
 var checkCollision = false
 var checkNavigation = false
 var checkImage = false
@@ -45,44 +45,53 @@ func _enter_tree():
 	dock.get_node(mainGuiPath+"HBoxOccluder/CheckBox").connect("toggled",self,"setOccluderCheck")
 	#settings
 	dock.get_node(mainGuiPath+"HBoxSettings/CheckGetPolyColli").connect("toggled",self,"setGetPolygonFromCollisionCheck")
-	dock.get_node(mainGuiPath+"HBoxSettings/CheckGetPolyColli").set_toggle_mode(getPolygonFromCollision)
+	#dock.get_node(mainGuiPath+"HBoxSettings/CheckGetPolyColli").set_toggle_mode(getPolygonFromCollision)
 	#tiles
 	dock.get_node(mainGuiPath+"create_tiles").connect("pressed",self,"create_tiles")
 	add_control_to_dock( DOCK_SLOT_RIGHT_BL, dock )
 
 func collisionPolygon():
 	print("add/remove collisionPolygon")
-	for seletedNode in get_selection().get_selected_nodes():
-		setCollisionPolygon(seletedNode)
+	for _selectedNode in get_editor_interface().get_selection().get_selected_nodes():
+		setCollisionPolygon(_selectedNode)
 
-func setCollisionPolygon(seletedNode):
-	if seletedNode.get_owner() != null:
-		var _owner = seletedNode.get_owner()
-		var _newStaticBodyNode = setStaticBody(seletedNode,_owner)
+func setCollisionPolygon(_selectedNode):
+	if _selectedNode.get_owner() != null:
+		var _owner = _selectedNode.get_owner()
+		var _newStaticBodyNode = setStaticBody(_selectedNode,_owner)
 		var _newCollisionPolygonNode = CollisionPolygon2D.new()
-		_newCollisionPolygonNode.set_polygon(getVector2ArrayFromSprite(seletedNode))
+		_newCollisionPolygonNode.set_polygon(getVector2ArrayFromSprite(_selectedNode))
 		_newCollisionPolygonNode.set_name("CollisionPolygon2D")
 		_newStaticBodyNode.add_child(_newCollisionPolygonNode)
 		_newCollisionPolygonNode.set_owner(_owner)
 	else:
 		print("Error: root node selected")
 
+func setStaticBody(_selectedNode,_owner):
+	if _selectedNode.has_node("StaticBody2D"):
+		_selectedNode.remove_child(_selectedNode.get_node("StaticBody2D"))
+	var _newStaticBodyNode = StaticBody2D.new()
+	_newStaticBodyNode.set_name("StaticBody2D")
+	_selectedNode.add_child(_newStaticBodyNode)
+	_newStaticBodyNode.set_owner(_owner)
+	return _newStaticBodyNode
+
 func occluder():
 	print("add/remove occluder")
-	for seletedNode in get_selection().get_selected_nodes():
-		setOccluder(seletedNode)
+	for _selectedNode in get_editor_interface().get_selection().get_selected_nodes():
+		setOccluder(_selectedNode)
 
-func setOccluder(seletedNode):
-	if seletedNode.get_owner() != null:
-		if seletedNode.get_type() == "Sprite":
-			if seletedNode.has_node("LightOccluder2D"):
+func setOccluder(_selectedNode):
+	if _selectedNode.get_owner() != null:
+		if _selectedNode is Sprite:
+			if _selectedNode.has_node("LightOccluder2D"):
 				print("deleting LightOccluder2D")
-				seletedNode.remove_child(seletedNode.get_node("LightOccluder2D"))
+				_selectedNode.remove_child(_selectedNode.get_node("LightOccluder2D"))
 			var _newLightOccluderNode = LightOccluder2D.new()
-			_newLightOccluderNode.set_occluder_polygon(getOccPolygon2D(seletedNode))
+			_newLightOccluderNode.set_occluder_polygon(getOccPolygon2D(_selectedNode))
 			_newLightOccluderNode.set_name("LightOccluder2D")
-			seletedNode.add_child(_newLightOccluderNode)
-			_newLightOccluderNode.set_owner(seletedNode.get_parent())
+			_selectedNode.add_child(_newLightOccluderNode)
+			_newLightOccluderNode.set_owner(_selectedNode.get_parent())
 		else:
 			print("Error: no sprite selected")
 	else:
@@ -90,87 +99,75 @@ func setOccluder(seletedNode):
 
 func navigation():
 	print("add/remove navigation")
-	for seletedNode in get_selection().get_selected_nodes():
-		setNavigation(seletedNode)
+	for _selectedNode in get_editor_interface().get_selection().get_selected_nodes():
+		setNavigation(_selectedNode)
 
-func setNavigation(seletedNode):
-	if seletedNode.get_owner() != null:
-		if seletedNode.get_type() == "Sprite":
-			if seletedNode.has_node("NavigationPolygonInstance"):
-				seletedNode.remove_child(seletedNode.get_node("NavigationPolygonInstance"))
+func setNavigation(_selectedNode):
+	if _selectedNode.get_owner() != null:
+		if _selectedNode is Sprite:
+			if _selectedNode.has_node("NavigationPolygonInstance"):
+				_selectedNode.remove_child(_selectedNode.get_node("NavigationPolygonInstance"))
 			var _newNavigationPolygonNode = NavigationPolygonInstance.new()
-			_newNavigationPolygonNode.set_navigation_polygon(getNavPolygon(seletedNode))
+			_newNavigationPolygonNode.set_navigation_polygon(getNavPolygon(_selectedNode))
 			_newNavigationPolygonNode.set_name("NavigationPolygonInstance")
-			seletedNode.add_child(_newNavigationPolygonNode)
-			_newNavigationPolygonNode.set_owner(seletedNode.get_parent())
+			_selectedNode.add_child(_newNavigationPolygonNode)
+			_newNavigationPolygonNode.set_owner(_selectedNode.get_parent())
 		else:
 			print("Error: no sprite selected")
 	else:
 		print("Error: root node selected")
 
-func getVector2ArrayFromSprite(selectedNode):
+func getVector2ArrayFromSprite(_selectedNode):
 	var _Array = []
-	var _Vector2Array = Vector2Array(_Array)
+	var _Vector2Array = PoolVector2Array(_Array)
 	_Vector2Array.append(Vector2(-tileSize/2,-tileSize/2))
 	_Vector2Array.append(Vector2(tileSize/2,-tileSize/2))
 	_Vector2Array.append(Vector2(tileSize/2,tileSize/2))
 	_Vector2Array.append(Vector2(-tileSize/2,tileSize/2))
 	return _Vector2Array
 
-func getVector2ArrayFromCollision(selectedNode):
-	return selectedNode.get_node("StaticBody2D/CollisionPolygon2D").get_polygon()
+func getVector2ArrayFromCollision(_selectedNode):
+	return _selectedNode.get_node("StaticBody2D/CollisionPolygon2D").get_polygon()
 
-func getNavPolygon(selectedNode):
+func getNavPolygon(_selectedNode):
 	var _navPoly = NavigationPolygon.new()
 	var _polyArray = null
 	if getPolygonFromCollision:
-		_polyArray = getVector2ArrayFromCollision(selectedNode)
+		_polyArray = getVector2ArrayFromCollision(_selectedNode)
 	else:
-		_polyArray = getVector2ArrayFromSprite(selectedNode)
+		_polyArray = getVector2ArrayFromSprite(_selectedNode)
 	_navPoly.add_outline(_polyArray)
-	_navPoly.add_polygon(IntArray([0, 1, 2, 3]))
+	_navPoly.add_polygon(PoolIntArray([0, 1, 2, 3]))
 	_navPoly.set_vertices(_polyArray)
 	return _navPoly
 
-func getOccPolygon2D(selectedNode):
+func getOccPolygon2D(_selectedNode):
 	var _occPoly = OccluderPolygon2D.new()
 	var _polyArray = null
 	if getPolygonFromCollision:
-		_polyArray = getVector2ArrayFromCollision(selectedNode)
+		_polyArray = getVector2ArrayFromCollision(_selectedNode)
 	else:
-		_polyArray = getVector2ArrayFromSprite(selectedNode)
+		_polyArray = getVector2ArrayFromSprite(_selectedNode)
 	_occPoly.set_polygon(_polyArray)
 	return _occPoly
 
-func tilesize(newTileSize):
-	tileSize = int(newTileSize)
+func tilesize(_newTileSize):
+	tileSize = int(_newTileSize)
 	if (tileSize < oneImageSelectedSize.x && tileSize > 0) || (oneImageSelectedSize.x != oneImageSelectedSize.y && tileSize > 0):
 		hFrames = oneImageSelectedSize.x/tileSize
 		vFrames = oneImageSelectedSize.y/tileSize
-		dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_text("0")
-		dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_text(str(hFrames*vFrames))
+		dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").text = "0"
+		dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").text = str(hFrames*vFrames)
 		dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_editable(true)
 		dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_editable(true)
 	else:
 		disableFramesGui()
 
-func setStaticBody(selectedNode,owner):
-	if selectedNode.has_node("StaticBody2D"):
-		selectedNode.remove_child(selectedNode.get_node("StaticBody2D"))
-	var _newStaticBodyNode = StaticBody2D.new()
-	_newStaticBodyNode.set_name("StaticBody2D")
-	var _newConvexPolygonShape = ConvexPolygonShape2D.new()
-	_newConvexPolygonShape.set_points(getVector2ArrayFromSprite(selectedNode))
-	_newStaticBodyNode.clear_shapes()
-	_newStaticBodyNode.add_shape(_newConvexPolygonShape)
-	selectedNode.add_child(_newStaticBodyNode)
-	_newStaticBodyNode.set_owner(owner)
-	return _newStaticBodyNode
 
 func show_dialog():
 	if fileDialog == null:
-		fileDialog = FileDialog.new()
-		get_parent().add_child(fileDialog)
+		fileDialog = EditorFileDialog.new()
+		get_editor_interface().get_base_control().add_child(fileDialog) #get theme from editor
 
 	fileDialog.set_mode(FileDialog.MODE_OPEN_FILES)
 	fileDialog.set_current_path("res://")
@@ -183,16 +180,16 @@ func show_dialog():
 	if not fileDialog.is_connected("files_selected",self,"on_files_selected"):
 		fileDialog.connect("files_selected",self,"on_files_selected")
 
-func on_files_selected(imagePathArray):
-	imagesPath = imagePathArray
+func on_files_selected(_imagePathArray):
+	imagesPath = _imagePathArray
 	var _newTexture  = ImageTexture.new()
 	var _newName
 	var _newSize
 	dock.get_node(mainGuiPath+"HBoxImage/CheckBox").set_pressed(true)
 	setImageCheck(true)
-	if imagePathArray.size() == 1:
+	if _imagePathArray.size() == 1:
 		oneImageSelected = true
-		_newTexture.load(imagePathArray[0])
+		_newTexture.load(_imagePathArray[0])
 		var _newTextureWidth = _newTexture.get_width()
 		var _newTextureHeight = _newTexture.get_height()
 		if _newTextureWidth == _newTextureHeight:
@@ -200,25 +197,24 @@ func on_files_selected(imagePathArray):
 			disableFramesGui()
 		elif _newTextureWidth < _newTextureHeight:
 			_newSize = _newTextureWidth
-			dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_text(str(_newTextureHeight/_newSize))
+			dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").text = str(_newTextureHeight/_newSize)
 		else:
 			_newSize = _newTextureHeight
-			dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_text(str(_newTextureWidth/_newSize))
+			dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").text = str(_newTextureWidth/_newSize)
 		oneImageSelectedSize = Vector2(_newTextureWidth,_newTextureHeight)
 		if _newTextureWidth > 64 || _newTextureHeight > 64:
 			_newTexture.set_size_override(Vector2(64,64))
-		_newName = getFileName(imagePathArray[0])
+		_newName = getFileName(_imagePathArray[0])
 	else:
 		oneImageSelected = false
 		oneImageSelectedSize = Vector2(0,0)
 		_newSize = ""
 		_newTexture.load("res://addons/ch.fischspiele.tilesethelper/gui_image_multiple.png")
 		_newName = "..."
-
-	dock.get_node(mainGuiPath+"HBoxImage/ImageContainer/TextureFrame").set_texture(_newTexture)
-	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/sizeBox/size").set_text(str(_newSize))
-	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/name/lblName").set_text(_newName)
-	dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_text("0")
+	dock.get_node(mainGuiPath+"HBoxImage/ImageContainer/TextureFrame").texture = _newTexture
+	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/sizeBox/size").text = str(_newSize)
+	dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/name/lblName").text = _newName
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").text ="0"
 
 func create_tiles():
 	if checkImage:
@@ -236,21 +232,23 @@ func addImageNodes():
 	var _root =  get_tree().get_edited_scene_root()
 	if dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").is_editable():
 		for _imagePath in imagesPath:
-			var _newTexture  = ImageTexture.new()
-			_newTexture.load(_imagePath)
+			var _newTexture  = null
+			print(_imagePath)
+			_newTexture = ResourceLoader.load(_imagePath,"ImageTexture")
 			_newTexture.set_flags(0)
-			var _startFrame = int(dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").get_text())
-			var _endFrame = int(dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").get_text())
-			var offsetX = int(dock.get_node(mainGuiPath+"HBoxFrameOffset/XOffset").get_text())
-			var offsetY = int(dock.get_node(mainGuiPath+"HBoxFrameOffset/YOffset").get_text())
+			var _startFrame = int(dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").text)
+			var _endFrame = int(dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").text)
+			var offsetX = int(dock.get_node(mainGuiPath+"HBoxFrameOffset/XOffset").text)
+			var offsetY = int(dock.get_node(mainGuiPath+"HBoxFrameOffset/YOffset").text)
 			var tilesWide = int((_newTexture.get_size().x + offsetX) / (int(tileSize) + offsetX))
 			var tilesTall = int((_newTexture.get_size().y + offsetY) / (int(tileSize) + offsetY))
 			for _frame in range(_startFrame,_endFrame):
-				var _imageName = getFileName(_imagePath)+str(_frame)
+				#var _imageName = getFileName(_imagePath)+str(_frame)
+				var _imageName = dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/name/lblName").get_text()+str(_frame)
 				var _newSpriteNode
 				if !_root.has_node(_imageName):
 					_newSpriteNode = Sprite.new()
-					_newSpriteNode.set_texture(_newTexture)
+					_newSpriteNode.texture = _newTexture
 					_newSpriteNode.set_vframes(vFrames)
 					_newSpriteNode.set_hframes(hFrames)
 
@@ -263,18 +261,18 @@ func addImageNodes():
 						var tmpY = offsetY
 						if _frame / tilesWide < 1:
 							tmpY = 0
-						var position = Vector2 ((tmpX + int(tileSize)) * (int(_frame) % tilesWide) , (tmpY + int(tileSize)) * int((int(_frame) / tilesWide)))
-						_newSpriteNode.set_region_rect( Rect2( position, Vector2(int(tileSize), int(tileSize))) )
-						_newSpriteNode.set_pos(position)
+						var _position = Vector2 ((tmpX + int(tileSize)) * (int(_frame) % tilesWide) , (tmpY + int(tileSize)) * int((int(_frame) / tilesWide)))
+						_newSpriteNode.set_region_rect( Rect2( _position, Vector2(int(tileSize), int(tileSize))) )
+						_newSpriteNode.position = _position
 					else:
-						_newSpriteNode.set_pos(Vector2(0,0))
+						_newSpriteNode.position = Vector2(0,0)
 					_newSpriteNode.set_frame(_frame)
 					_root.add_child(_newSpriteNode)
 					_newSpriteNode.set_owner(_root)
 					_newSpriteNode.set_name(_imageName)
 				else:
 					_newSpriteNode = _root.get_node(_imageName)
-					_newSpriteNode.set_texture(_newTexture)
+					_newSpriteNode.texture = _newTexture
 					_newSpriteNode.set_vframes(vFrames)
 					_newSpriteNode.set_hframes(hFrames)
 					_newSpriteNode.set_frame(_frame)
@@ -286,22 +284,23 @@ func addImageNodes():
 					setOccluder(_newSpriteNode)
 	else:
 		for _imagePath in imagesPath:
-			var _newTexture  = ImageTexture.new()
-			_newTexture.load(_imagePath)
+			var _newTexture  = null
+			_newTexture = ResourceLoader.load(_imagePath,"ImageTexture")
 			_newTexture.set_flags(0)
 			tileSize = _newTexture.get_width()
-			var _imageName = getFileName(_imagePath)
+			#var _imageName = getFileName(_imagePath)
+			var _imageName = dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/name/lblName").get_text()
 			var _newSpriteNode
 			if !_root.has_node(_imageName):
 				_newSpriteNode = Sprite.new()
-				_newSpriteNode.set_texture(_newTexture)
+				_newSpriteNode.texture = _newTexture
 				_root.add_child(_newSpriteNode)
-				_newSpriteNode.set_pos(Vector2(0,0))
+				_newSpriteNode.position = Vector2(0,0)
 				_newSpriteNode.set_owner(_root)
 				_newSpriteNode.set_name(_imageName)
 			else:
 				_newSpriteNode = _root.get_node(_imageName)
-				_newSpriteNode.set_texture(_newTexture)
+				_newSpriteNode.texture = _newTexture
 			if checkCollision:
 				setCollisionPolygon(_newSpriteNode)
 			if checkNavigation:
@@ -312,24 +311,25 @@ func addImageNodes():
 ###
 ###  - - GUI Helper functions
 ###
-func setCollisionPolygonCheck(newValue):
-	checkCollision = newValue
+func setCollisionPolygonCheck(_newValue):
+	checkCollision = _newValue
 
-func setImageCheck(newValue):
-	checkImage = newValue
+func setImageCheck(_newValue):
+	checkImage = _newValue
 
-func setNavigationCheck(newValue):
-	checkNavigation = newValue
+func setNavigationCheck(_newValue):
+	checkNavigation = _newValue
 
-func setOccluderCheck(newValue):
-	checkOccluder = newValue
+func setOccluderCheck(_newValue):
+	checkOccluder = _newValue
 
-func setGetPolygonFromCollisionCheck(newValue):
-	getPolygonFromCollision = newValue
+func setGetPolygonFromCollisionCheck(_newValue):
+	print("setGetPolygonFromCollisionCheck",_newValue)
+	getPolygonFromCollision = _newValue
 
 func disableFramesGui():
-	dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_text("0")
-	dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_text("0")
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").text = "0"
+	dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").text = "0"
 	dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").set_editable(false)
 	dock.get_node(mainGuiPath+"HBoxImageFrame/frame2").set_editable(false)
 	vFrames = 0
@@ -337,7 +337,8 @@ func disableFramesGui():
 
 func _exit_tree():
 	remove_control_from_docks(dock)
-	dock.queue_free()
+	if dock:
+		dock.queue_free()
 
 ###
 ### - - Helper functions

@@ -1,619 +1,789 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/ch.fischspiele.tilesethelper/gui_image_single.png" type="Texture" id=1]
 [ext_resource path="res://addons/ch.fischspiele.tilesethelper/icon_collision_polygon_2d.png" type="Texture" id=2]
 [ext_resource path="res://addons/ch.fischspiele.tilesethelper/icon_navigation_polygon_instance.png" type="Texture" id=3]
 [ext_resource path="res://addons/ch.fischspiele.tilesethelper/icon_light_occluder_2d.png" type="Texture" id=4]
 
-[node name="Tileset" type="PanelContainer"]
+[node name="Tileset" type="PanelContainer" index="0"]
 
-anchor/right = 1
-anchor/bottom = 1
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 0
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 88.0
-margin/bottom = -53.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 __meta__ = {
 "__editor_plugin_screen__": "2D"
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="0"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 3
-size_flags/vertical = 3
-margin/left = 7.0
-margin/top = 7.0
-margin/right = 225.0
-margin/bottom = 366.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 201.0
+margin_bottom = 325.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 alignment = 0
 
-[node name="HBoxImage" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxImage" type="HBoxContainer" parent="VBoxContainer" index="0"]
 
-editor/display_folded = true
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 218.0
-margin/bottom = 70.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 194.0
+margin_bottom = 70.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 alignment = 1
+_sections_unfolded = [ "Size Flags" ]
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxImage"]
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxImage" index="0"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 26.0
-margin/bottom = 70.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 24.0
+margin_bottom = 70.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
+group = null
 flat = false
 align = 0
 
-[node name="ImageContainer" type="CenterContainer" parent="VBoxContainer/HBoxImage"]
+[node name="ImageContainer" type="CenterContainer" parent="VBoxContainer/HBoxImage" index="1"]
 
-editor/display_folded = true
-rect/min_size = Vector2( 64, 64 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 30.0
-margin/top = 0.0
-margin/right = 94.0
-margin/bottom = 70.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 28.0
+margin_right = 92.0
+margin_bottom = 70.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 use_top_left = false
 
-[node name="btnImage" type="TextureButton" parent="VBoxContainer/HBoxImage/ImageContainer"]
+[node name="btnImage" type="TextureButton" parent="VBoxContainer/HBoxImage/ImageContainer" index="0"]
 
-rect/min_size = Vector2( 64, 64 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 3.0
-margin/right = 64.0
-margin/bottom = 67.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 3.0
+margin_right = 64.0
+margin_bottom = 67.0
+rect_min_size = Vector2( 64, 64 )
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 toggle_mode = false
-click_on_press = true
 enabled_focus_mode = 2
 shortcut = null
-params/resize_mode = 0
-params/stretch_mode = 0
+group = null
+_sections_unfolded = [ "Rect" ]
 
-[node name="TextureFrame" type="TextureFrame" parent="VBoxContainer/HBoxImage/ImageContainer"]
+[node name="TextureFrame" type="TextureRect" parent="VBoxContainer/HBoxImage/ImageContainer" index="1"]
 
-rect/min_size = Vector2( 64, 64 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 3.0
-margin/right = 64.0
-margin/bottom = 67.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 3.0
+margin_right = 64.0
+margin_bottom = 67.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 texture = ExtResource( 1 )
 stretch_mode = 4
+_sections_unfolded = [ "Mouse" ]
 
-[node name="VBoxImage" type="VBoxContainer" parent="VBoxContainer/HBoxImage"]
+[node name="VBoxImage" type="VBoxContainer" parent="VBoxContainer/HBoxImage" index="2"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 3
-size_flags/vertical = 2
-margin/left = 98.0
-margin/top = 0.0
-margin/right = 218.0
-margin/bottom = 70.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 96.0
+margin_right = 194.0
+margin_bottom = 70.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 alignment = 0
+_sections_unfolded = [ "Size Flags" ]
 
-[node name="lable" type="Label" parent="VBoxContainer/HBoxImage/VBoxImage"]
+[node name="lable" type="Label" parent="VBoxContainer/HBoxImage/VBoxImage" index="0"]
 
-rect/min_size = Vector2( 45, 0 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 3
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 120.0
-margin/bottom = 14.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 98.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
 text = "Name:"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+_sections_unfolded = [ "Size Flags" ]
 
-[node name="name" type="HBoxContainer" parent="VBoxContainer/HBoxImage/VBoxImage"]
+[node name="name" type="HBoxContainer" parent="VBoxContainer/HBoxImage/VBoxImage" index="1"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 18.0
-margin/right = 120.0
-margin/bottom = 42.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 98.0
+margin_bottom = 42.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 alignment = 0
+_sections_unfolded = [ "Size Flags" ]
 
-[node name="lblName" type="LineEdit" parent="VBoxContainer/HBoxImage/VBoxImage/name"]
+[node name="lblName" type="LineEdit" parent="VBoxContainer/HBoxImage/VBoxImage/name" index="0"]
 
-rect/min_size = Vector2( 120, 0 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 1
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 120.0
-margin/bottom = 24.0
-placeholder/alpha = 0.6
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 98.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 3
+size_flags_vertical = 1
 align = 1
 focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
+context_menu_enabled = true
+placeholder_alpha = 0.6
+caret_blink = false
+caret_blink_speed = 0.65
+caret_position = 0
+_sections_unfolded = [ "Size Flags" ]
 
-[node name="sizeBox" type="HBoxContainer" parent="VBoxContainer/HBoxImage/VBoxImage"]
+[node name="sizeBox" type="HBoxContainer" parent="VBoxContainer/HBoxImage/VBoxImage" index="2"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 46.0
-margin/right = 120.0
-margin/bottom = 70.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 46.0
+margin_right = 98.0
+margin_bottom = 70.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 alignment = 0
 
-[node name="lblSize" type="Label" parent="VBoxContainer/HBoxImage/VBoxImage/sizeBox"]
+[node name="lblSize" type="Label" parent="VBoxContainer/HBoxImage/VBoxImage/sizeBox" index="0"]
 
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 3
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 5.0
-margin/right = 58.0
-margin/bottom = 19.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 5.0
+margin_right = 36.0
+margin_bottom = 19.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
 text = "Size:"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+_sections_unfolded = [ "Size Flags" ]
 
-[node name="size" type="LineEdit" parent="VBoxContainer/HBoxImage/VBoxImage/sizeBox"]
+[node name="size" type="LineEdit" parent="VBoxContainer/HBoxImage/VBoxImage/sizeBox" index="1"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 62.0
-margin/top = 0.0
-margin/right = 120.0
-margin/bottom = 24.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 40.0
+margin_right = 98.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
 text = "0"
-placeholder/alpha = 0.6
 align = 1
 focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
+context_menu_enabled = true
+placeholder_alpha = 0.6
+caret_blink = false
+caret_blink_speed = 0.65
+caret_position = 0
+_sections_unfolded = [ "Size Flags" ]
 
-[node name="HBoxImageFrame" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxImageFrame" type="HBoxContainer" parent="VBoxContainer" index="1"]
 
-editor/display_folded = true
-rect/min_size = Vector2( 0, 24 )
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 74.0
-margin/right = 218.0
-margin/bottom = 98.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 74.0
+margin_right = 194.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 alignment = 2
 
-[node name="lblFrom" type="Label" parent="VBoxContainer/HBoxImageFrame"]
+[node name="lblFrom" type="Label" parent="VBoxContainer/HBoxImageFrame" index="0"]
 
-rect/min_size = Vector2( 70, 0 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 5.0
-margin/right = 70.0
-margin/bottom = 19.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 9.0
+margin_top = 5.0
+margin_right = 53.0
+margin_bottom = 19.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
 text = "Frame:"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="frame1" type="LineEdit" parent="VBoxContainer/HBoxImageFrame"]
+[node name="frame1" type="LineEdit" parent="VBoxContainer/HBoxImageFrame" index="1"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 74.0
-margin/top = 0.0
-margin/right = 132.0
-margin/bottom = 24.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 57.0
+margin_right = 115.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
 text = "10"
-placeholder/alpha = 0.6
 align = 1
 max_length = 9
 editable = false
 focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
+context_menu_enabled = true
+placeholder_alpha = 0.6
+caret_blink = false
+caret_blink_speed = 0.65
+caret_position = 0
 
-[node name="lblTo" type="Label" parent="VBoxContainer/HBoxImageFrame"]
+[node name="lblTo" type="Label" parent="VBoxContainer/HBoxImageFrame" index="2"]
 
-rect/min_size = Vector2( 20, 0 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 136.0
-margin/top = 5.0
-margin/right = 156.0
-margin/bottom = 19.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 119.0
+margin_top = 5.0
+margin_right = 132.0
+margin_bottom = 19.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
 text = "to"
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="frame2" type="LineEdit" parent="VBoxContainer/HBoxImageFrame"]
+[node name="frame2" type="LineEdit" parent="VBoxContainer/HBoxImageFrame" index="3"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-size_flags/stretch_ratio = 0.0
-margin/left = 160.0
-margin/top = 0.0
-margin/right = 218.0
-margin/bottom = 24.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 136.0
+margin_right = 194.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
 text = "20"
-placeholder/alpha = 0.6
 align = 1
 max_length = 9
 editable = false
 focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
+context_menu_enabled = true
+placeholder_alpha = 0.6
+caret_blink = false
+caret_blink_speed = 0.65
+caret_position = 0
 
-[node name="HBoxFrameOffset" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxFrameOffset" type="HBoxContainer" parent="VBoxContainer" index="2"]
 
 editor/display_folded = true
-rect/min_size = Vector2( 0, 24 )
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 102.0
-margin/right = 218.0
-margin/bottom = 126.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 194.0
+margin_bottom = 126.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 alignment = 2
 
-[node name="lblFrom" type="Label" parent="VBoxContainer/HBoxFrameOffset"]
+[node name="lblFrom" type="Label" parent="VBoxContainer/HBoxFrameOffset" index="0"]
 
-rect/min_size = Vector2( 70, 0 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 5.0
-margin/right = 70.0
-margin/bottom = 19.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 5.0
+margin_right = 55.0
+margin_bottom = 19.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
 text = "Offset X:"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="XOffset" type="LineEdit" parent="VBoxContainer/HBoxFrameOffset"]
+[node name="XOffset" type="LineEdit" parent="VBoxContainer/HBoxFrameOffset" index="1"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 74.0
-margin/top = 0.0
-margin/right = 132.0
-margin/bottom = 24.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 59.0
+margin_right = 117.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
 text = "0"
-placeholder/alpha = 0.6
 align = 1
 max_length = 3
 focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
+context_menu_enabled = true
+placeholder_alpha = 0.6
+caret_blink = false
+caret_blink_speed = 0.65
+caret_position = 0
 
-[node name="lblTo" type="Label" parent="VBoxContainer/HBoxFrameOffset"]
+[node name="lblTo" type="Label" parent="VBoxContainer/HBoxFrameOffset" index="2"]
 
-rect/min_size = Vector2( 20, 0 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 136.0
-margin/top = 5.0
-margin/right = 156.0
-margin/bottom = 19.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 121.0
+margin_top = 5.0
+margin_right = 132.0
+margin_bottom = 19.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
 text = "Y:"
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="YOffset" type="LineEdit" parent="VBoxContainer/HBoxFrameOffset"]
+[node name="YOffset" type="LineEdit" parent="VBoxContainer/HBoxFrameOffset" index="3"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-size_flags/stretch_ratio = 0.0
-margin/left = 160.0
-margin/top = 0.0
-margin/right = 218.0
-margin/bottom = 24.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 136.0
+margin_right = 194.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
 text = "0"
-placeholder/alpha = 0.6
 align = 1
 max_length = 3
 focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
+context_menu_enabled = true
+placeholder_alpha = 0.6
+caret_blink = false
+caret_blink_speed = 0.65
+caret_position = 0
 
-[node name="HSeparator1" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparator1" type="HSeparator" parent="VBoxContainer" index="3"]
 
-rect/min_size = Vector2( 0, 6 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 130.0
-margin/right = 218.0
-margin/bottom = 136.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 130.0
+margin_right = 194.0
+margin_bottom = 134.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 
-[node name="HBoxCollision" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxCollision" type="HBoxContainer" parent="VBoxContainer" index="4"]
 
-editor/display_folded = true
-rect/min_size = Vector2( 0, 24 )
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 140.0
-margin/right = 218.0
-margin/bottom = 170.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 138.0
+margin_right = 194.0
+margin_bottom = 162.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 alignment = 0
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxCollision"]
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxCollision" index="0"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 26.0
-margin/bottom = 30.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 24.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
+group = null
 flat = false
 align = 2
 
-[node name="collisionPolygon" type="Button" parent="VBoxContainer/HBoxCollision"]
+[node name="collisionPolygon" type="Button" parent="VBoxContainer/HBoxCollision" index="1"]
 
-rect/min_size = Vector2( 188, 30 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 3
-size_flags/vertical = 2
-margin/left = 30.0
-margin/top = 0.0
-margin/right = 218.0
-margin/bottom = 30.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 28.0
+margin_right = 194.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
+group = null
 text = "Collision"
 icon = ExtResource( 2 )
 flat = false
+align = 1
+_sections_unfolded = [ "Size Flags" ]
 
-[node name="HSeparator4" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="VBoxContainer" index="5"]
 
-rect/min_size = Vector2( 0, 6 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 174.0
-margin/right = 218.0
-margin/bottom = 180.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 166.0
+margin_right = 194.0
+margin_bottom = 170.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 
-[node name="HBoxNavigation" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxNavigation" type="HBoxContainer" parent="VBoxContainer" index="6"]
 
-editor/display_folded = true
-rect/min_size = Vector2( 0, 24 )
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 184.0
-margin/right = 218.0
-margin/bottom = 214.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 174.0
+margin_right = 194.0
+margin_bottom = 198.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 alignment = 0
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxNavigation"]
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxNavigation" index="0"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 26.0
-margin/bottom = 30.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 24.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
+group = null
 flat = false
 align = 0
 
-[node name="navigation" type="Button" parent="VBoxContainer/HBoxNavigation"]
+[node name="navigation" type="Button" parent="VBoxContainer/HBoxNavigation" index="1"]
 
-rect/min_size = Vector2( 188, 30 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 3
-size_flags/vertical = 2
-margin/left = 30.0
-margin/top = 0.0
-margin/right = 218.0
-margin/bottom = 30.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 28.0
+margin_right = 194.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
+group = null
 text = "Navigation"
 icon = ExtResource( 3 )
 flat = false
+align = 1
+_sections_unfolded = [ "Size Flags" ]
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" index="7"]
 
-rect/min_size = Vector2( 0, 6 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 218.0
-margin/right = 218.0
-margin/bottom = 224.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 202.0
+margin_right = 194.0
+margin_bottom = 206.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 
-[node name="HBoxOccluder" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxOccluder" type="HBoxContainer" parent="VBoxContainer" index="8"]
 
-editor/display_folded = true
-rect/min_size = Vector2( 0, 24 )
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 228.0
-margin/right = 218.0
-margin/bottom = 258.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 210.0
+margin_right = 194.0
+margin_bottom = 234.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 alignment = 0
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxOccluder"]
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxOccluder" index="0"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 3.0
-margin/right = 26.0
-margin/bottom = 26.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 24.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
+group = null
 flat = false
 align = 0
 
-[node name="occluder" type="Button" parent="VBoxContainer/HBoxOccluder"]
+[node name="occluder" type="Button" parent="VBoxContainer/HBoxOccluder" index="1"]
 
-rect/min_size = Vector2( 188, 30 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 3
-size_flags/vertical = 2
-margin/left = 30.0
-margin/top = 0.0
-margin/right = 218.0
-margin/bottom = 30.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 28.0
+margin_right = 194.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
+group = null
 text = "Occluder"
 icon = ExtResource( 4 )
 flat = false
+align = 1
+_sections_unfolded = [ "Size Flags" ]
 
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer" index="9"]
 
-rect/min_size = Vector2( 0, 6 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 262.0
-margin/right = 218.0
-margin/bottom = 268.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 238.0
+margin_right = 194.0
+margin_bottom = 242.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 
-[node name="HBoxSettings" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxSettings" type="HBoxContainer" parent="VBoxContainer" index="10"]
 
-rect/min_size = Vector2( 0, 33 )
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 272.0
-margin/right = 218.0
-margin/bottom = 305.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 246.0
+margin_right = 194.0
+margin_bottom = 286.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 alignment = 0
 
-[node name="CheckGetPolyColli" type="CheckButton" parent="VBoxContainer/HBoxSettings"]
+[node name="CheckGetPolyColli" type="CheckButton" parent="VBoxContainer/HBoxSettings" index="0"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 5.0
-margin/right = 76.0
-margin/bottom = 27.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 76.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
+group = null
 flat = false
 align = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxSettings"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxSettings" index="1"]
 
-rect/min_size = Vector2( 138, 33 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 3
-size_flags/vertical = 3
-margin/left = 80.0
-margin/top = 0.0
-margin/right = 218.0
-margin/bottom = 33.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 80.0
+margin_top = 4.0
+margin_right = 169.0
+margin_bottom = 35.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
 text = "copy Polygon
 from Collision"
 valign = 1
@@ -621,34 +791,42 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = 2
 
-[node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer" index="11"]
 
-rect/min_size = Vector2( 0, 6 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 309.0
-margin/right = 218.0
-margin/bottom = 315.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 290.0
+margin_right = 194.0
+margin_bottom = 294.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 
-[node name="create_tiles" type="Button" parent="VBoxContainer"]
+[node name="create_tiles" type="Button" parent="VBoxContainer" index="12"]
 
-rect/min_size = Vector2( 100, 40 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 59.0
-margin/top = 319.0
-margin/right = 159.0
-margin/bottom = 359.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 298.0
+margin_right = 194.0
+margin_bottom = 318.0
+rect_pivot_offset = Vector2( 0, 0 )
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 toggle_mode = false
-click_on_press = true
 enabled_focus_mode = 2
 shortcut = null
+group = null
 text = "Create Tile(s)"
 flat = false
+align = 1
 
 
