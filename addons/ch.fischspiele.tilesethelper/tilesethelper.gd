@@ -233,7 +233,6 @@ func addImageNodes():
 	if dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").is_editable():
 		for _imagePath in imagesPath:
 			var _newTexture  = null
-			print(_imagePath)
 			_newTexture = ResourceLoader.load(_imagePath,"ImageTexture")
 			_newTexture.set_flags(0)
 			var _startFrame = int(dock.get_node(mainGuiPath+"HBoxImageFrame/frame1").text)
@@ -243,7 +242,6 @@ func addImageNodes():
 			var tilesWide = int((_newTexture.get_size().x + offsetX) / (int(tileSize) + offsetX))
 			var tilesTall = int((_newTexture.get_size().y + offsetY) / (int(tileSize) + offsetY))
 			for _frame in range(_startFrame,_endFrame):
-				#var _imageName = getFileName(_imagePath)+str(_frame)
 				var _imageName = dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/name/lblName").get_text()+str(_frame)
 				var _newSpriteNode
 				if !_root.has_node(_imageName):
@@ -254,7 +252,6 @@ func addImageNodes():
 
 					if (int(tileSize) < _newTexture.get_size().x):
 						_newSpriteNode.set_region(true)
-
 						var tmpX = offsetX
 						if _frame % tilesWide == 0:
 							tmpX = 0
@@ -266,6 +263,7 @@ func addImageNodes():
 						_newSpriteNode.position = _position
 					else:
 						_newSpriteNode.position = Vector2(0,0)
+					
 					_newSpriteNode.set_frame(_frame)
 					_root.add_child(_newSpriteNode)
 					_newSpriteNode.set_owner(_root)
@@ -283,19 +281,20 @@ func addImageNodes():
 				if checkOccluder:
 					setOccluder(_newSpriteNode)
 	else:
-		for _imagePath in imagesPath:
+		for i in range(imagesPath.size()):
+			var _imagePath = imagesPath[i]
+			print(_imagePath)
 			var _newTexture  = null
 			_newTexture = ResourceLoader.load(_imagePath,"ImageTexture")
 			_newTexture.set_flags(0)
 			tileSize = _newTexture.get_width()
-			#var _imageName = getFileName(_imagePath)
-			var _imageName = dock.get_node(mainGuiPath+"HBoxImage/VBoxImage/name/lblName").get_text()
+			var _imageName = getFileName(_imagePath)
 			var _newSpriteNode
 			if !_root.has_node(_imageName):
 				_newSpriteNode = Sprite.new()
 				_newSpriteNode.texture = _newTexture
 				_root.add_child(_newSpriteNode)
-				_newSpriteNode.position = Vector2(0,0)
+				_newSpriteNode.position = Vector2(tileSize*i,0)
 				_newSpriteNode.set_owner(_root)
 				_newSpriteNode.set_name(_imageName)
 			else:
