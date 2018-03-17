@@ -15,6 +15,7 @@ var mainGuiPath = "HBoxContainer/"
 var imagesPath
 var selectedNodes
 var tilePropertiesNode
+var editorPlugin
 
 func _ready():
 	tilePropertiesNode = get_tree().get_nodes_in_group("tilesethelper_properties")[0]
@@ -47,15 +48,7 @@ func _ready():
 	get_node(mainGuiPath+"VBoxContainer3/HBoxSettings/CheckGetPolyColli").connect("toggled",self,"setGetPolygonFromCollisionCheck")
 	get_node(mainGuiPath+"VBoxContainer3/HBoxSettings/CheckGetPolyColli").set_toggle_mode(getPolygonFromCollision)
 	#properties
-	get_node(mainGuiPath+"VBoxProperties/random/ImageContainer1/btnImage").connect("pressed",self,"show_dialog",["propertyImage"])
-	get_node(mainGuiPath+"VBoxContainer3/properties").connect("pressed",self,"addRemoveTileProperties")
 	get_node(mainGuiPath+"VBoxProperties").hide()
-	get_node(mainGuiPath+"VBoxProperties/cbProperties/cbFlipX").connect("toggled",self,"setTileProperties",["flipX"])
-	get_node(mainGuiPath+"VBoxProperties/cbProperties/cbFlipY").connect("toggled",self,"setTileProperties",["flipY"])
-	get_node(mainGuiPath+"VBoxProperties/cbProperties/cbRandom").connect("toggled",self,"setTileProperties",["random"])
-	get_node(mainGuiPath+"VBoxProperties/random/add").connect("pressed",self,"addTextureFrame")
-	get_node(mainGuiPath+"VBoxProperties/random/remove").connect("pressed",self,"removeTextureFrame")
-	get_node(mainGuiPath+"VBoxProperties/random/ItemList").connect("item_selected",self,"listItem_selected")
 	#tiles
 	get_node(mainGuiPath+"VBoxContainer3/create_tiles").connect("pressed",self,"create_tiles")
 
@@ -177,8 +170,8 @@ func setStaticBody(selectedNode,owner):
 	return _newStaticBodyNode
 
 func show_dialog(_dialogeType):
-	var fileDialog = FileDialog.new()
-	get_parent().add_child(fileDialog)
+	var fileDialog = EditorFileDialog.new()
+	editorPlugin.get_base_control().add_child(fileDialog)
 	fileDialog.set_mode(FileDialog.MODE_OPEN_FILES)
 	fileDialog.set_current_path("res://")
 	fileDialog.set_access(FileDialog.ACCESS_RESOURCES)
@@ -346,34 +339,12 @@ func on_selection_changed():
 	if selectedNodes.size() == 1:
 		var _selectedNode = selectedNodes[0]
 		if _selectedNode.get_type() == "Sprite":
-			get_node(mainGuiPath+"VBoxContainer3/properties").set_disabled(false)
-			var _material = _selectedNode.get_material()
-			if _material == null:
-				get_node(mainGuiPath+"VBoxContainer3/properties").set_text("Add Tiles Properties")
-				get_node(mainGuiPath+"VBoxProperties").hide()
-			else:
-				get_node(mainGuiPath+"VBoxContainer3/properties").set_text("Remove Tiles Properties")
+			if editorPlugin.isPropertiesAvailable:
 				get_node(mainGuiPath+"VBoxProperties").show()
-				#show tileproperties
-				get_node(mainGuiPath+"VBoxProperties/cbProperties/cbFlipX").set_pressed(_material.get_shader_param("flipX"))
-				get_node(mainGuiPath+"VBoxProperties/cbProperties/cbFlipY").set_pressed(_material.get_shader_param("flipY"))
-				get_node(mainGuiPath+"VBoxProperties/cbProperties/cbRandom").set_pressed(_material.get_shader_param("random"))
-				if _material.get_shader_param("random"):
-					get_node(mainGuiPath+"VBoxProperties/random").show()
-					var i = 1
-					get_node(mainGuiPath+"VBoxProperties/random/ItemList").clear()
-					while _material.get_shader_param("frame"+str(i)): #dirty trick, because _shader.has_param("frame1")) is always false !?!
-						get_node(mainGuiPath+"VBoxProperties/random/ItemList").add_item("frame"+str(i))
-						i +=1
-					if get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_item_count() > 0: #select first item
-						get_node(mainGuiPath+"VBoxProperties/random/ItemList").select(0)
-						listItem_selected(0)
-				else:
-					get_node(mainGuiPath+"VBoxProperties/random").hide()
 		else:
-			lockProperties()
+			get_node(mainGuiPath+"VBoxProperties").hide()
 	else:
-		lockProperties()
+		get_node(mainGuiPath+"VBoxProperties").hide()
 
 func addRemoveTileProperties():
 	if selectedNodes.size() == 1:

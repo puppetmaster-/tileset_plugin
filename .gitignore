@@ -1,3 +1,7 @@
 addons/ch.fischspiele.tilesethelper/not_for_export/
 engine.cfg
 icon.png
+default_env.tres
+project.godot
+.import/
+icon.png.import

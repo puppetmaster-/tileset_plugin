@@ -1,24 +1,24 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://addons/ch.fischspiele.tilesethelper/tilesethelper_dock.gd" type="Script" id=1]
 [ext_resource path="res://addons/ch.fischspiele.tilesethelper/images/gui_image_single.png" type="Texture" id=2]
 [ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_collision_polygon_2d.png" type="Texture" id=3]
 [ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_navigation_polygon_instance.png" type="Texture" id=4]
 [ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_light_occluder_2d.png" type="Texture" id=5]
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/icons/icon_properties.png" type="Texture" id=6]
-[ext_resource path="res://addons/ch.fischspiele.tilesethelper/scenes/properties.tscn" type="PackedScene" id=7]
+[ext_resource path="res://addons/ch.fischspiele.tilesethelper/scenes/properties.tscn" type="PackedScene" id=6]
 
 [node name="Tileset" type="PanelContainer"]
 
 anchor/right = 1
 anchor/bottom = 1
+rect/min_size = Vector2( 0, 150 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = -55.0
+margin/right = -58.0
 margin/bottom = 460.0
 script/script = ExtResource( 1 )
 __meta__ = {
@@ -33,8 +33,8 @@ size_flags/horizontal = 3
 size_flags/vertical = 3
 margin/left = 7.0
 margin/top = 7.0
-margin/right = 1072.0
-margin/bottom = 133.0
+margin/right = 1075.0
+margin/bottom = 143.0
 custom_constants/separation = 5
 alignment = 0
 
@@ -48,7 +48,7 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 218.0
-margin/bottom = 126.0
+margin/bottom = 136.0
 custom_constants/separation = 4
 alignment = 1
 
@@ -60,9 +60,9 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 0.0
+margin/top = 5.0
 margin/right = 218.0
-margin/bottom = 70.0
+margin/bottom = 75.0
 alignment = 1
 
 [node name="CheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer/HBoxImage"]
@@ -237,9 +237,9 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 74.0
+margin/top = 79.0
 margin/right = 218.0
-margin/bottom = 98.0
+margin/bottom = 103.0
 alignment = 2
 
 [node name="lblFrom" type="Label" parent="HBoxContainer/VBoxContainer/HBoxImageFrame"]
@@ -321,9 +321,9 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 102.0
+margin/top = 107.0
 margin/right = 218.0
-margin/bottom = 126.0
+margin/bottom = 131.0
 alignment = 2
 
 [node name="lblFrom" type="Label" parent="HBoxContainer/VBoxContainer/HBoxFrameOffset"]
@@ -406,7 +406,7 @@ size_flags/vertical = 2
 margin/left = 223.0
 margin/top = 0.0
 margin/right = 226.0
-margin/bottom = 126.0
+margin/bottom = 136.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 
@@ -417,7 +417,7 @@ size_flags/vertical = 2
 margin/left = 231.0
 margin/top = 0.0
 margin/right = 441.0
-margin/bottom = 126.0
+margin/bottom = 136.0
 custom_constants/separation = 10
 alignment = 0
 
@@ -571,7 +571,7 @@ size_flags/vertical = 2
 margin/left = 446.0
 margin/top = 0.0
 margin/right = 449.0
-margin/bottom = 126.0
+margin/bottom = 136.0
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
 
@@ -582,40 +582,22 @@ size_flags/vertical = 2
 margin/left = 454.0
 margin/top = 0.0
 margin/right = 634.0
-margin/bottom = 126.0
+margin/bottom = 136.0
 custom_constants/separation = 5
 alignment = 0
 
-[node name="properties" type="Button" parent="HBoxContainer/VBoxContainer3"]
-
-rect/min_size = Vector2( 180, 30 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 3
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 180.0
-margin/bottom = 30.0
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "Add Tiles Properties"
-icon = ExtResource( 6 )
-flat = false
-
 [node name="HBoxSettings" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3"]
 
+editor/display_folded = true
 rect/min_size = Vector2( 0, 33 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 35.0
+margin/top = 0.0
 margin/right = 180.0
-margin/bottom = 68.0
+margin/bottom = 33.0
 alignment = 0
 
 [node name="CheckGetPolyColli" type="CheckButton" parent="HBoxContainer/VBoxContainer3/HBoxSettings"]
@@ -660,9 +642,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 73.0
+margin/top = 38.0
 margin/right = 180.0
-margin/bottom = 79.0
+margin/bottom = 44.0
 
 [node name="create_tiles" type="Button" parent="HBoxContainer/VBoxContainer3"]
 
@@ -672,9 +654,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 0
 margin/left = 40.0
-margin/top = 84.0
+margin/top = 49.0
 margin/right = 140.0
-margin/bottom = 124.0
+margin/bottom = 89.0
 toggle_mode = false
 click_on_press = true
 enabled_focus_mode = 2
@@ -691,19 +673,18 @@ size_flags/vertical = 2
 margin/left = 639.0
 margin/top = 0.0
 margin/right = 642.0
-margin/bottom = 126.0
+margin/bottom = 136.0
 
 [node name="VBoxProperties" type="VBoxContainer" parent="HBoxContainer"]
 
-visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 3
 size_flags/vertical = 2
 margin/left = 647.0
 margin/top = 0.0
-margin/right = 1065.0
-margin/bottom = 126.0
+margin/right = 1068.0
+margin/bottom = 136.0
 custom_constants/separation = 2
 alignment = 0
 
@@ -716,7 +697,7 @@ size_flags/horizontal = 3
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 418.0
+margin/right = 421.0
 margin/bottom = 14.0
 text = "Tile Properties:"
 percent_visible = 1.0
@@ -732,181 +713,13 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 16.0
-margin/right = 418.0
+margin/right = 421.0
 margin/bottom = 22.0
 
-[node name="cbProperties" type="HBoxContainer" parent="HBoxContainer/VBoxProperties"]
+[node name="properties" parent="HBoxContainer/VBoxProperties" instance=ExtResource( 6 )]
 
-editor/display_folded = true
-visibility/visible = false
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 24.0
-margin/right = 354.0
-margin/bottom = 47.0
-alignment = 0
-
-[node name="cbFlipX" type="CheckBox" parent="HBoxContainer/VBoxProperties/cbProperties"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 93.0
-margin/bottom = 23.0
-toggle_mode = true
-enabled_focus_mode = 2
-shortcut = null
-text = "Flip X-Axis"
-flat = false
-align = 0
-
-[node name="cbFlipY" type="CheckBox" parent="HBoxContainer/VBoxProperties/cbProperties"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 97.0
-margin/top = 0.0
-margin/right = 189.0
-margin/bottom = 23.0
-toggle_mode = true
-enabled_focus_mode = 2
-shortcut = null
-text = "Flip Y-Axis"
-flat = false
-align = 0
-
-[node name="cbRandom" type="CheckBox" parent="HBoxContainer/VBoxProperties/cbProperties"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 193.0
-margin/top = 0.0
-margin/right = 271.0
-margin/bottom = 23.0
-toggle_mode = true
-enabled_focus_mode = 2
-shortcut = null
-text = "Random"
-flat = false
-align = 0
-
-[node name="random" type="HBoxContainer" parent="HBoxContainer/VBoxProperties"]
-
-editor/display_folded = true
-visibility/visible = false
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 24.0
-margin/right = 354.0
-margin/bottom = 88.0
-alignment = 0
-
-[node name="ImageContainer1" type="CenterContainer" parent="HBoxContainer/VBoxProperties/random"]
-
-editor/display_folded = true
-rect/min_size = Vector2( 64, 64 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 64.0
-margin/bottom = 64.0
-use_top_left = false
-
-[node name="btnImage" type="TextureButton" parent="HBoxContainer/VBoxProperties/random/ImageContainer1"]
-
-rect/min_size = Vector2( 64, 64 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 64.0
-margin/bottom = 64.0
-toggle_mode = false
-click_on_press = true
-enabled_focus_mode = 2
-shortcut = null
-params/resize_mode = 0
-params/stretch_mode = 0
-
-[node name="TextureFrame" type="TextureFrame" parent="HBoxContainer/VBoxProperties/random/ImageContainer1"]
-
-rect/min_size = Vector2( 64, 64 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 64.0
-margin/bottom = 64.0
-texture = ExtResource( 2 )
-stretch_mode = 4
-
-[node name="ItemList" type="ItemList" parent="HBoxContainer/VBoxProperties/random"]
-
-rect/min_size = Vector2( 100, 0 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 68.0
-margin/top = 0.0
-margin/right = 168.0
-margin/bottom = 64.0
-
-[node name="add" type="Button" parent="HBoxContainer/VBoxProperties/random"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 172.0
-margin/top = 22.0
-margin/right = 207.0
-margin/bottom = 42.0
-toggle_mode = false
-click_on_press = true
-enabled_focus_mode = 2
-shortcut = null
-text = "add"
-flat = false
-
-[node name="remove" type="Button" parent="HBoxContainer/VBoxProperties/random"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 211.0
-margin/top = 22.0
-margin/right = 272.0
-margin/bottom = 42.0
-toggle_mode = false
-click_on_press = true
-enabled_focus_mode = 2
-shortcut = null
-text = "remove"
-flat = false
-
-[node name="properties" parent="HBoxContainer/VBoxProperties" instance=ExtResource( 7 )]
+margin/right = 421.0
+margin/bottom = 136.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 
