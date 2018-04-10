@@ -41,13 +41,14 @@ size_flags/horizontal = 3
 size_flags/vertical = 2
 margin/left = 154.0
 margin/top = 0.0
-margin/right = 418.0
+margin/right = 421.0
 margin/bottom = 112.0
 alignment = 0
 
 [node name="propertyItem" parent="VBoxContainer" instance=ExtResource( 2 )]
 
 rect/min_size = Vector2( 0, 84 )
+margin/right = 267.0
 margin/bottom = 84.0
 
 [node name="buttons" type="HBoxContainer" parent="VBoxContainer"]
@@ -58,7 +59,7 @@ size_flags/horizontal = 3
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 88.0
-margin/right = 264.0
+margin/right = 267.0
 margin/bottom = 112.0
 custom_constants/separation = 16
 alignment = 0

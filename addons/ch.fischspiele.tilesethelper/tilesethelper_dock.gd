@@ -6,7 +6,7 @@ var oneImageSelected = false
 var oneImageSelectedSize = Vector2(0,0)
 var hFrames = 0
 var vFrames = 0
-var getPolygonFromCollision = true
+var getPolygonFromCollision = false
 var checkCollision = false
 var checkNavigation = false
 var checkImage = false
@@ -19,6 +19,7 @@ var editorPlugin
 
 func _ready():
 	tilePropertiesNode = get_tree().get_nodes_in_group("tilesethelper_properties")[0]
+	tilePropertiesNode.propertyItem.propertyTextureBtn.connect("pressed",self,"show_dialog",["propertyImage"])
 	#image
 	get_node(mainGuiPath+"VBoxContainer/HBoxImage/VBoxImage/sizeBox/size").connect("text_changed",self,"tilesize")
 	get_node(mainGuiPath+"VBoxContainer/HBoxImage/VBoxImage/sizeBox/size").set_text(str(tileSize))
@@ -48,7 +49,7 @@ func _ready():
 	get_node(mainGuiPath+"VBoxContainer3/HBoxSettings/CheckGetPolyColli").connect("toggled",self,"setGetPolygonFromCollisionCheck")
 	get_node(mainGuiPath+"VBoxContainer3/HBoxSettings/CheckGetPolyColli").set_toggle_mode(getPolygonFromCollision)
 	#properties
-	get_node(mainGuiPath+"VBoxProperties").hide()
+	changePropertiesVisible(false)
 	#tiles
 	get_node(mainGuiPath+"VBoxContainer3/create_tiles").connect("pressed",self,"create_tiles")
 
@@ -217,6 +218,7 @@ func on_files_selected(imagePathArray,_fileDialog):
 		_newSize = ""
 		_newTexture.load("res://addons/ch.fischspiele.tilesethelper/images/gui_image_multiple.png")
 		_newName = "..."
+		disableFramesGui()
 
 	get_node(mainGuiPath+"VBoxContainer/HBoxImage/ImageContainer/TextureFrame").set_texture(_newTexture)
 	get_node(mainGuiPath+"VBoxContainer/HBoxImage/VBoxImage/sizeBox/size").set_text(str(_newSize))
@@ -236,9 +238,9 @@ func create_tiles():
 			occluder()
 
 func addImageNodes():
-	print("creating ",imagesPath.size()," sprites from selection")
 	var _root =  get_tree().get_edited_scene_root()
 	if get_node(mainGuiPath+"VBoxContainer/HBoxImageFrame/frame1").is_editable():
+		print("creating ",imagesPath.size()," frame sprites from selection")
 		for _imagePath in imagesPath:
 			var _newTexture  = ImageTexture.new()
 			_newTexture.load(_imagePath)
@@ -250,7 +252,7 @@ func addImageNodes():
 			var tilesWide = int((_newTexture.get_size().x + offsetX) / (int(tileSize) + offsetX))
 			var tilesTall = int((_newTexture.get_size().y + offsetY) / (int(tileSize) + offsetY))
 			for _frame in range(_startFrame,_endFrame):
-				var _imageName = getFileName(_imagePath)+str(_frame)
+				var _imageName = get_node(mainGuiPath+"VBoxContainer/HBoxImage/VBoxImage/name/lblName").get_text()+str(_frame)
 				var _newSpriteNode
 				if !_root.has_node(_imageName):
 					_newSpriteNode = Sprite.new()
@@ -289,6 +291,7 @@ func addImageNodes():
 				if checkOccluder:
 					setOccluder(_newSpriteNode)
 	else:
+		print("creating ",imagesPath.size()," sprites from selection")
 		for _imagePath in imagesPath:
 			var _newTexture  = ImageTexture.new()
 			_newTexture.load(_imagePath)
@@ -296,6 +299,7 @@ func addImageNodes():
 			tileSize = _newTexture.get_width()
 			var _imageName = getFileName(_imagePath)
 			var _newSpriteNode
+			print(_imageName)
 			if !_root.has_node(_imageName):
 				_newSpriteNode = Sprite.new()
 				_newSpriteNode.set_texture(_newTexture)
@@ -314,22 +318,21 @@ func addImageNodes():
 				setOccluder(_newSpriteNode)
 
 ### - - Tile Properties - - ###
+func changePropertiesVisible(_value):
+	get_node(mainGuiPath+"/VBoxProperties/lable").set("visibility/visible",_value)
+	get_node(mainGuiPath+"/VBoxProperties/HSeparator").set("visibility/visible",_value)
+	get_node(mainGuiPath+"/VBoxProperties/properties").set("visibility/visible",_value)
+
 func on_files_selected_property(imagePathArray,_fileDialog):
 	imagesPath = imagePathArray
 	var _newTexture  = ImageTexture.new()
-	if imagePathArray.size() == 1 && get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_selected_items().size() == 1:
+	if imagePathArray.size() == 1:
 		_newTexture.load(imagePathArray[0])
 		var _newTextureWidth = _newTexture.get_width()
 		var _newTextureHeight = _newTexture.get_height()
 		if _newTextureWidth > 64 || _newTextureHeight > 64:
 			_newTexture.set_size_override(Vector2(64,64))
-		get_node(mainGuiPath+"VBoxProperties/random/ImageContainer1/TextureFrame").set_texture(_newTexture)
-		var _idx = get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_selected_items()[0]
-		var _name = get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_item_text(_idx)
-		var _selectedNode = selectedNodes[0]
-		var _material = _selectedNode.get_material()
-		var _texture = _material.set_shader_param(_name,_newTexture)
-	#get_parent().remove_child(_fileDialog)
+		tilePropertiesNode.setTexturePropertyImage(_newTexture)
 	_fileDialog.queue_free()
 
 func on_selection_changed():
@@ -340,136 +343,32 @@ func on_selection_changed():
 		var _selectedNode = selectedNodes[0]
 		if _selectedNode.get_type() == "Sprite":
 			if editorPlugin.isPropertiesAvailable:
-				get_node(mainGuiPath+"VBoxProperties").show()
+				changePropertiesVisible(true)
 		else:
-			get_node(mainGuiPath+"VBoxProperties").hide()
+			changePropertiesVisible(false)
 	else:
-		get_node(mainGuiPath+"VBoxProperties").hide()
-
-func addRemoveTileProperties():
-	if selectedNodes.size() == 1:
-		var _selectedNode = selectedNodes[0]
-		if _selectedNode.get_type() == "Sprite":
-			if get_node(mainGuiPath+"VBoxContainer3/properties").get_text() == "Add Tiles Properties":
-				var _canvasItemMaterial = CanvasItemMaterial.new()
-				#fix tile properties / should be more flexible
-				var _shader = CanvasItemShader.new()
-				_shader.set_code("","uniform bool flipX = false;\nuniform bool flipY = false;\nuniform bool random = false;","")
-				_canvasItemMaterial.set_shader(_shader)
-				_selectedNode.set_material(_canvasItemMaterial)
-				get_node(mainGuiPath+"VBoxContainer3/properties").set_text("Remove Tiles Properties")
-			else:
-				_selectedNode.set_material(null)
-				get_node(mainGuiPath+"VBoxContainer3/properties").set_text("Add Tiles Properties")
-			on_selection_changed()
-
-func addTextureFrame():
-	var _count = get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_item_count()
-	var _itemName = "frame"+str(_count+1)
-	get_node(mainGuiPath+"VBoxProperties/random/ItemList").add_item(_itemName)
-	var _selectedNode = selectedNodes[0]
-	var _material = _selectedNode.get_material()
-	var _shader = _material.get_shader()
-	var _code = _shader.get_fragment_code().replace("\nCOLOR = tex(frame1, UV);","")
-	_code = _code+"\nuniform texture "+_itemName+";\nCOLOR = tex(frame1, UV);"
-	_shader.set_code("",_code,"")
-	var _texture = _selectedNode.get_texture()
-	_material.set_shader_param(_itemName,_texture)
-	get_node(mainGuiPath+"VBoxProperties/random/ItemList").select(_count)
-	listItem_selected(_count)
-
-func removeTextureFrame():
-	var _idx = get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_selected_items()[0]
-	var _selectedNode = selectedNodes[0]
-	var _material = _selectedNode.get_material()
-	var _itemCount = get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_item_count()
-	for i in range(_itemCount):#set item meta data
-		var _itemText = get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_item_text(i)
-		get_node(mainGuiPath+"VBoxProperties/random/ItemList").set_item_metadata(i,_material.get_shader_param(_itemText))
-	for i in range(_idx,_itemCount):#update item text
-		get_node(mainGuiPath+"VBoxProperties/random/ItemList").set_item_text(i,"frame"+str(i))
-	get_node(mainGuiPath+"VBoxProperties/random/ItemList").remove_item(_idx)
-	updateShaderCodeFromItemList()
-	if _itemCount-1 != 0: #select next item
-		get_node(mainGuiPath+"VBoxProperties/random/ItemList").select(_itemCount-2)
-		listItem_selected(_itemCount-2)
-	else:
-		resetPropertyImage()
-
-func listItem_selected(_idx):
-	var _name = get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_item_text(_idx)
-	var _selectedNode = selectedNodes[0]
-	var _material = _selectedNode.get_material()
-	var _texture = _material.get_shader_param(_name)
-	if _texture.get_width() > 64 || _texture.get_height() > 64:
-			_texture.set_size_override(Vector2(64,64))
-	get_node(mainGuiPath+"VBoxProperties/random/ImageContainer1/TextureFrame").set_texture(_texture)
-
-func updateShaderCodeFromItemList():
-	var _selectedNode = selectedNodes[0]
-	var _material = _selectedNode.get_material()
-	var _shader = _material.get_shader()
-	var _stateRandom = _material.get_shader_param("random")
-	var _code = getShaderCodeFromCeckbox(_material)
-	if _stateRandom:
-		var _itemCount = get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_item_count()
-		for i in range(_itemCount):
-			_code = _code+"\nuniform texture frame"+str(i+1)+";"
-		_code = _code+"\nCOLOR = tex(frame1, UV);"
-	_shader.set_code("",_code,"")
-	if _stateRandom:
-		var _itemCount = get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_item_count()
-		for i in range(_itemCount):
-			var _texture = get_node(mainGuiPath+"VBoxProperties/random/ItemList").get_item_metadata(i)
-			_material.set_shader_param("frame"+str(i+1),_texture)
-
-func setTileProperties(_newValue,_property):
-	if selectedNodes.size() == 1:
-		var _selectedNode = selectedNodes[0]
-		if _selectedNode.get_type() == "Sprite":
-			var _material = _selectedNode.get_material()
-			_material.set_shader_param(_property,_newValue)
-			if _property == "random":
-				if _newValue:
-					get_node(mainGuiPath+"VBoxProperties/random").show()
-					resetPropertyImage()
-				else:
-					var _shader = _material.get_shader()
-					var _code = getShaderCodeFromCeckbox(_material)
-					_shader.set_code("",_code,"")
-					get_node(mainGuiPath+"VBoxProperties/random/ItemList").clear()
-					get_node(mainGuiPath+"VBoxProperties/random").hide()
+		changePropertiesVisible(false)
 
 #----------------- GUI Helper functions ------------------#
-func setCollisionPolygonCheck(newValue):
-	checkCollision = newValue
+func setCollisionPolygonCheck(_newValue):
+	print("set CollisionPolygonCheck to ",_newValue)
+	checkCollision = _newValue
 
-func setImageCheck(newValue):
-	checkImage = newValue
+func setImageCheck(_newValue):
+	print("set ImageCheck to ",_newValue)
+	checkImage = _newValue
 
-func setNavigationCheck(newValue):
-	checkNavigation = newValue
+func setNavigationCheck(_newValue):
+	print("set NavigationCheck to ",_newValue)
+	checkNavigation = _newValue
 
-func setOccluderCheck(newValue):
-	checkOccluder = newValue
+func setOccluderCheck(_newValue):
+	print("set OccluderCheck to ",_newValue)
+	checkOccluder = _newValue
 
-func setGetPolygonFromCollisionCheck(newValue):
-	getPolygonFromCollision = newValue
-
-func lockProperties():
-	get_node(mainGuiPath+"VBoxContainer3/properties").set_text("Add Tiles Properties")
-	get_node(mainGuiPath+"VBoxContainer3/properties").set_disabled(true)
-	get_node(mainGuiPath+"VBoxProperties").hide()
-
-func resetPropertyImage():
-	var _texture = load("res://addons/ch.fischspiele.tilesethelper/images/gui_image_single.png")
-	get_node(mainGuiPath+"VBoxProperties/random/ImageContainer1/TextureFrame").set_texture(_texture)
-
-func getShaderCodeFromCeckbox(_material):
-	var _stateFlipX = str(_material.get_shader_param("flipX"))
-	var _stateFlipY = str(_material.get_shader_param("flipY"))
-	var _stateRandom = _material.get_shader_param("random")
-	return "uniform bool flipX = "+_stateFlipX.to_lower()+";\nuniform bool flipY = "+_stateFlipY.to_lower()+";\nuniform bool random = "+str(_stateRandom).to_lower()+";"
+func setGetPolygonFromCollisionCheck(_newValue):
+	print("set GetPolygonFromCollisionCheck to ",_newValue)
+	getPolygonFromCollision = _newValue
 
 func disableFramesGui():
 	get_node(mainGuiPath+"VBoxContainer/HBoxImageFrame/frame1").set_text("0")
