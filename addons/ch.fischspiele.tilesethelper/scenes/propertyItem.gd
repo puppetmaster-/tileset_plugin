@@ -10,6 +10,7 @@ onready var propertyValueType = get_node("valueContainer/propertyValue")
 onready var propertyName = get_node("nameContainer/propertyName")
 onready var propertyTileValue = get_node("valueContainer/propertyValue/3/value")
 onready var propertyBoolValue = get_node("valueContainer/propertyValue/0")
+onready var propertyFloatValue = get_node("valueContainer/propertyValue/1")
 onready var propertyTextureBtn = get_node("valueContainer/propertyValue/2/btnImage")
 
 var itemList
@@ -19,10 +20,12 @@ func _ready():
 	propertyName.connect("text_entered",self,"name_changed")
 	propertyTileValue.connect("text_entered",self,"tileValue_changed")
 	propertyBoolValue.connect("pressed",self,"item_changed")
+	propertyFloatValue.connect("value_changed",self,"item_changed")
 
 #------------------ VISUAL ------------------#
 func set_item(_type,_name,_value):
-	print("set_item = ",_type," / ",_name," / ",_value)
+	print("set propertyItem [ ",_type," , ",_name," , ",_value," ]")
+	set_property_disabled(false)
 	propertyType.select(_type)
 	propertyName.set_text(_name)
 	if _type == BOOL:
@@ -33,22 +36,22 @@ func set_item(_type,_name,_value):
 		propertyValueType.get_node(str(_type)+"/TextureFrame").set_texture(_value)
 	elif _type == TILE:
 		propertyValueType.get_node(str(_type)+"/value").set_text(str(_value))
-		setTileValue(_value)
-	changeValueTypeTo(_type)
+		set_tile_value(_value)
+	change_valueType_to(_type)
 
 func item_selected(_id):
 	if _id == BOOL:
-		changeValueTypeTo(BOOL)
+		change_valueType_to(BOOL)
 	elif _id == FLOAT:
-		changeValueTypeTo(FLOAT)
+		change_valueType_to(FLOAT)
 	elif _id == TEXTURE:
-		changeValueTypeTo(TEXTURE)
+		change_valueType_to(TEXTURE)
 	elif _id == TILE:
 		propertyName.set_editable(false)
-		changeValueTypeTo(TILE)
+		change_valueType_to(TILE)
 	item_changed()
 
-func changeValueTypeTo(_type):
+func change_valueType_to(_type):
 	propertyName.get_parent().show()
 	if _type == TILE:
 		propertyName.get_parent().hide()
@@ -56,13 +59,19 @@ func changeValueTypeTo(_type):
 		_child.hide()
 	propertyValueType.get_node(str(_type)).show()
 
+func set_property_disabled(_value):
+	propertyName.set_editable(!_value)
+	propertyType.set_disabled(_value)
+	propertyValueType.get_node("0").set_disabled(_value)
+
 #------------------ SET DATA ------------------#
 func set_empty():
-	print("set propertyItem empty")
 	propertyType.select(BOOL)
-	changeValueTypeTo(BOOL)
+	change_valueType_to(BOOL)
 	set_item_value(false,BOOL)
 	propertyName.set_text("")
+	set_property_disabled(true)
+	
 
 func set_item_name(_name):
 	propertyName.set_text(_name)
@@ -77,7 +86,7 @@ func set_item_value(_value,_type):
 	elif _type == TILE:
 		propertyValueType.get_node(str(_type)+"/value").set_text(str(_value))
 
-func setTileValue(_value):
+func set_tile_value(_value):
 	var _child = get_tree().get_edited_scene_root().get_child(int(_value))
 	var _texture = _child.get_texture()
 	var _sprite = propertyValueType.get_node("3/Sprite")
@@ -107,23 +116,23 @@ func get_item():
 		_value = propertyValueType.get_node(str(_type)+"/value").get_text()
 	return [_type,propertyName.get_text(),_value]
 
-func setFocusOnName():
+func set_focus_on_name():
 	propertyName.grab_focus()
 	propertyName.select_all()
 
 #------------------ EVENTS ------------------#
 func tileValue_changed(_value):
-	setTileValue(_value)
+	set_tile_value(_value)
 	item_changed()
 
 func itemType_change(_type):
-	changeValueTypeTo(_type)
+	change_valueType_to(_type)
 	emit_signal("type_changed",_type)
 
 func name_changed(_text):
 	propertyName.release_focus()
 	item_changed()
 
-func item_changed():
+func item_changed(_value=0): #_value for signal bug
 	var _item = get_item()
 	emit_signal("item_changed",_item[0],_item[1],_item[2])

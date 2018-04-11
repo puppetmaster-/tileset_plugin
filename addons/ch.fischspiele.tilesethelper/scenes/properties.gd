@@ -62,7 +62,7 @@ func getPropertiesFromShader(_selectedNode):
 				_propertyListItem_selected(0)
 
 func addPropertyListItem(_type,_name,_value):
-	print("addPropertyListItem = ",_type," / ",_name," / ",_value)
+	print("add propertyListItem [ ",_type," , ",_name," , ",_value," ]")
 	var _idx = propertyList.get_item_count()
 	if _type == propertyItem.BOOL:
 		propertyList.add_item(_name,iconBool)
@@ -82,10 +82,11 @@ func _newPropertyItem():
 	addPropertyListItem(propertyItem.BOOL,"myProperty",false)
 	var _idx = propertyList.get_item_count()-1
 	manualselectItem(_idx)
-	propertyItem.setFocusOnName()
+	propertyItem.set_focus_on_name()
 
 func _removePropertyItem():
 	if propertyList.get_selected_items().size() != 0:
+		print("remove PropertyListItem [ ",propertyItem.get_item()[0]," , ",propertyItem.get_item()[1]," , ",propertyItem.get_item()[2]," ]")
 		propertyList.remove_item(propertyList.get_selected_items()[0])
 		if propertyList.get_item_count() != 0:
 			manualselectItem(propertyList.get_item_count()-1)
@@ -99,12 +100,10 @@ func _propertyList_Item_changed(_type,_name,_value):
 		var _idx = propertyList.get_selected_items()[0]
 		propertyList.set_item_text(_idx,_name)
 		propertyList.set_item_metadata(_idx,[_type,_name,_value])
-		print("_propertyList_Item_changed = ",_type," / ",_name," / ",_value)
 		writeShader()
 
 func _propertyList_Type_changed(_type):
 	if propertyList.get_selected_items() != null && propertyList.get_selected_items().size() != 0: #bug
-		print("_propertyList_Type_changed = ", _type)
 		var _idx = propertyList.get_selected_items()[0]
 		if _type == propertyItem.BOOL:
 			propertyList.set_item_icon(_idx,iconBool)
@@ -120,7 +119,7 @@ func _propertyList_Type_changed(_type):
 		propertyItem.item_changed()
 
 func writeShader():
-	print("write shader!")
+	print("tile properties saved!")
 	var _material = selectedNode.get_material()
 	if _material == null:
 		_material = CanvasItemMaterial.new()

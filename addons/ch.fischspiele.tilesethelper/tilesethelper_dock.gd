@@ -339,8 +339,6 @@ func on_selection_changed():
 	if selectedNodes.size() == 1:
 		var _selectedNode = selectedNodes[0]
 		tilePropertiesNode.getPropertiesFromShader(_selectedNode)
-	if selectedNodes.size() == 1:
-		var _selectedNode = selectedNodes[0]
 		if _selectedNode.get_type() == "Sprite":
 			if editorPlugin.isPropertiesAvailable:
 				changePropertiesVisible(true)
